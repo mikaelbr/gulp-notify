@@ -41,6 +41,15 @@ File from gulp stream passed in as argument.
 
 ### notify(options)
 
+#### options.onLast
+Type: `Boolean`  
+Default: `false`
+
+If the notification should only happen on the last file 
+of the stream. Per default a notification is triggered
+on each file.
+
+
 #### options.message
 Type: `String`  
 Default: File path in stream

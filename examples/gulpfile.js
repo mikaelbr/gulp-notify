@@ -23,3 +23,13 @@ gulp.task("function", function () {
           return "Some file: " + file.relative;
       }));
 });
+
+gulp.task("onlast", function () {
+  gulp.src("../test/fixtures/*")
+      .pipe(notify({
+        onLast: true,
+        message: function(file) {
+          return "Some file: " + file.relative;
+        }
+      }));
+});
