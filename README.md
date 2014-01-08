@@ -1,4 +1,4 @@
-# gulp-notify [![NPM version][npm-image]][npm-url] [![Dependency Status][depstat-image]][depstat-url]
+# gulp-notify [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
 
 > notification plugin for [gulp](https://github.com/gulpjs/gulp)
 
@@ -80,6 +80,9 @@ will contain both title and message.
 
 [npm-url]: https://npmjs.org/package/gulp-notify
 [npm-image]: https://badge.fury.io/js/gulp-notify.png
+
+[travis-url]: http://travis-ci.org/mikaelbr/gulp-notify
+[travis-image]: https://secure.travis-ci.org/mikaelbr/gulp-notify.png?branch=master
 
 [depstat-url]: https://david-dm.org/mikaelbr/gulp-notify
 [depstat-image]: https://david-dm.org/mikaelbr/gulp-notify.png
