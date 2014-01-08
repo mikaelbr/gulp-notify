@@ -22,7 +22,7 @@
     "url": "git://github.com/mikaelbr/gulp-notify.git"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha -R spec"
   },
   "dependencies": {
     "event-stream": "*",
