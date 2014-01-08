@@ -62,7 +62,8 @@ module.exports = function (options) {
     var stream = this;
     notify(lastFile, function (err, file) {
       if (err) stream.emit("error", err);
-    })
+    });
+    lastFile = null; // reset
     stream.emit("end");
   });
 };
