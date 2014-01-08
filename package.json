@@ -1,0 +1,46 @@
+{
+  "name": "gulp-notify",
+  "version": "0.0.5",
+  "description": "A plugin for Gulp to send messages to Mac Notification Center",
+  "keywords": [
+    "gulpplugin",
+    "notify",
+    "gulp",
+    "notification",
+    "reporter"
+  ],
+  "homepage": "https://github.com/mikaelbr/gulp-notify",
+  "bugs": "https://github.com/mikaelbr/gulp-notify/issues",
+  "author": {
+    "name": "Mikael Brevik",
+    "email": "mikaelbre@gmail.com",
+    "url": "https://github.com/mikaelbr"
+  },
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mikaelbr/gulp-notify.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "event-stream": "*",
+    "node-notifier": "~1.0.0-beta2"
+  },
+  "devDependencies": {
+    "mocha": "~1.14.0",
+    "should": "~2.1.0",
+    "gulp-util": "~2.2.5",
+    "gulp": "~3.2.2"
+  },
+  "engines": {
+    "node": ">=0.8.0",
+    "npm": ">=1.2.10"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}
