@@ -1,5 +1,6 @@
 var es = require("event-stream"),
     path = require("path"),
+    gutil = require("gulp-util"),
     notifier = require("node-notifier");
 
 module.exports = function (options) {
@@ -11,10 +12,10 @@ module.exports = function (options) {
   function notify(file, callback) {
     callback = callback || function () {};
     if (!reporter) {
-      return callback(new Error("gulp-notify: No reporter specified."), undefined);
+      return callback(new gutil.PluginError("gulp-notify", "No reporter specified."), undefined);
     }
     reporter(constructOptions(options, file), function (err) {
-      if (err) return callback(err);
+      if (err) return callback(new gutil.PluginError("gulp-notify", err));
       callback(null, file);
     });
   }

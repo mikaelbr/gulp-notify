@@ -1,6 +1,6 @@
 {
   "name": "gulp-notify",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A plugin for Gulp to send messages to Mac Notification Center",
   "keywords": [
     "gulpplugin",
@@ -26,12 +26,12 @@
   },
   "dependencies": {
     "event-stream": "*",
-    "node-notifier": "~1.0.0-beta2"
+    "gulp-util": ">=2.2.9",
+    "node-notifier": ">=1.0.0-beta2"
   },
   "devDependencies": {
     "mocha": "~1.14.0",
     "should": "~2.1.0",
-    "gulp-util": "~2.2.5",
     "gulp": "~3.2.2"
   },
   "engines": {
