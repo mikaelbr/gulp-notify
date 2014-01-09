@@ -3,23 +3,10 @@
 > notification plugin for [gulp](https://github.com/gulpjs/gulp)
 
 ## Information
-
-<table>
-<tr> 
-<td>Package</td><td>gulp-notify</td>
-</tr>
-<tr>
-<td>Description</td>
-<td>Send messages to Mac Notification center using the 
-[node-notifier](https://github.com/mikaelbr/node-notifier) module. 
-Can also specify custom notifier (e.g. Growl notification).
-</td>
-</tr>
-<tr>
-<td>Node Version</td>
-<td>>= 0.8</td>
-</tr>
-</table>
+| Package       | gulp-notify  |
+| ------------- |--------------|
+| Description   | Send messages to Mac Notification center using the [node-notifier](https://github.com/mikaelbr/node-notifier) module. Can also specify custom notifier (e.g. Growl notification). |
+| Node Version  | >= 0.8      |
 
 **Note: Without overriding the notifier, Mac OS X >= 10.8 is required for this to run.**
 
