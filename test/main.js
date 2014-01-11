@@ -3,7 +3,7 @@
 
 var gulp = require('gulp'),
     should = require('should'),
-    es = require('event-stream'),
+    through = require('through'),
     join = require('path').join,
     notify = require('../');
 
@@ -48,6 +48,47 @@ describe('gulp output stream', function() {
       });
 
       outstream.on('end', function() {
+        done();
+      });
+
+      instream.pipe(outstream);
+    });
+
+    it('should emit error when sub-module returns error', function(done) {
+      var testString = "testString",
+          instream = gulp.src(join(__dirname, "./fixtures/*.txt")),
+          outstream = notify({
+            message: testString,
+            notifier: function (options, callback) {
+              callback(new Error(testString));
+            }
+          });
+
+      outstream.on('error', function (error) {
+        should.exist(error);
+        should.exist(error.message);
+        String(error.message).should.equal(testString);
+        done();
+      });
+
+      instream.pipe(outstream);
+    });
+
+
+    it('should emit error when sub-module throws exception/error', function(done) {
+      var testString = "some exception",
+          instream = gulp.src(join(__dirname, "./fixtures/*.txt")),
+          outstream = notify({
+            message: testString,
+            notifier: function (options, callback) {
+              throw new Error(testString);
+            }
+          });
+
+      outstream.on('error', function (error) {
+        should.exist(error);
+        should.exist(error.message);
+        String(error.message).should.equal(testString);
         done();
       });
 
@@ -191,7 +232,7 @@ describe('gulp output stream', function() {
           numFilesAfter = 0;
 
       instream
-        .pipe(es.through(function (file) {
+        .pipe(through(function (file) {
           numFilesBefore++;
           this.emit("data", file);
         }, function () {
@@ -199,7 +240,7 @@ describe('gulp output stream', function() {
           this.emit("end");
         }))
         .pipe(outstream)
-        .pipe(es.through(function (file) {
+        .pipe(through(function (file) {
           numFilesAfter++;
           this.emit("data", file);
         }, function () {
