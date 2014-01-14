@@ -4,6 +4,7 @@
 var gulp = require('gulp'),
     should = require('should'),
     through = require('through'),
+    gutil = require('gulp-util'),
     join = require('path').join,
     notify = require('../');
 
@@ -248,6 +249,33 @@ describe('gulp output stream', function() {
           this.emit("end");
           done();
         }));
+    });
+
+    it('should have defined onError function on object', function (done) {
+      should.exist(notify.onError);
+      done();
+    });
+
+    it('should be limited by notifying on error if th onError-option is passed', function (done) {
+      var
+        testMessage = "tester",
+        srcFile = join(__dirname, "./fixtures/*"),
+        onError = notify.onError({
+          notifier: mockGenerator(function (opts) {
+            should.exist(opts);
+            should.exist(opts.title);
+            should.exist(opts.message);
+            String(opts.message).should.equal(testMessage);
+            String(opts.title).should.equal("Error in Gulpfile");
+            done();
+          })
+        });
+
+      gulp.src(srcFile)
+        .pipe(through(function (file) {
+          this.emit("error", new gutil.PluginError("testPlugin", testMessage));
+        }))
+        .on("error", onError)
     });
   });
 });

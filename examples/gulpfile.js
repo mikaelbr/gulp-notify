@@ -1,6 +1,7 @@
 
 var gulp = require('gulp');
 var notify = require('../');
+var through = require('through');
 
 gulp.task("multiple", function () {
   gulp.src("../test/fixtures/*")
@@ -32,4 +33,12 @@ gulp.task("onlast", function () {
           return "Some file: " + file.relative;
         }
       }));
+});
+
+gulp.task("error", function () {
+  gulp.src("../test/fixtures/*")
+      .pipe(through(function () {
+        this.emit("error", "Something happend: Error message!")
+      }))
+      .on("error", notify.onError());
 });
