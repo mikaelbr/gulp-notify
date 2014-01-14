@@ -76,6 +76,23 @@ The callback must be called when the notification is finished. Options
 will contain both title and message.
 
 
+### notify.onError()
+
+Same API as using `notify()`, but instead of being passed `vinyl File` an
+error object gets sent.
+
+Example:
+
+```javascript
+gulp.src("../test/fixtures/*")
+      .pipe(through(function () {
+        this.emit("error", "Something happend: Error message!")
+      }))
+      .on("error", notify.onError(function (error) {
+        return "Message to the notifier: " + error.message;
+      }));
+```
+
 ## License
 
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
