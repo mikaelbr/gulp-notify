@@ -1,4 +1,4 @@
-var through = require("through"),
+var through = require("through2"),
     path = require("path"),
     gutil = require("gulp-util"),
     notifier = require("node-notifier");
@@ -12,7 +12,7 @@ var plugin = module.exports = function (options) {
   var reporter = options.notifier || notifier.notify;
   var lastFile = null;
 
-  function notify (file) {
+  function notify (file, enc, callback) {
     var stream = this;
     stream.pause();
 
@@ -20,32 +20,39 @@ var plugin = module.exports = function (options) {
       if (err) {
         stream.emit("error", err);
       } else {
-        stream.emit("data", file);
+        stream.push(file);
       }
       stream.resume();
+      callback();
     });
   }
 
   if (!options.onLast) {
-    return through(notify);
+    return through.obj(notify);
   }
 
   // Only send notification on the last file.
-  return through(function (file) {
+  return through.obj(function (file, enc, callback) {
     lastFile = file;
-    this.emit("data", file)
-  }, function () {
+    this.push(file);
+    callback();
+  }, function (callback) {
     var stream = this;
 
     if (!lastFile) {
-      return stream.emit("end");
+      // stream.emit("end");
+      return callback();
     }
 
     report(reporter, lastFile, options, function (err, file) {
-      if (err) stream.emit("error", err);
+      if (err) {
+        stream.emit("error", err);
+        return callback();
+      }
     });
     lastFile = null; // reset
-    stream.emit("end");
+    // stream.emit("end");
+    return callback();
   });
 };
 

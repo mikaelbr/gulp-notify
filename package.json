@@ -27,7 +27,7 @@
   "dependencies": {
     "gulp-util": ">=2.2.9",
     "node-notifier": ">=1.0.0-beta2",
-    "through": ">=2.3.4"
+    "through2": "~0.4.0"
   },
   "devDependencies": {
     "mocha": "~1.14.0",
