@@ -40,7 +40,6 @@ var plugin = module.exports = function (options) {
     var stream = this;
 
     if (!lastFile) {
-      // stream.emit("end");
       return callback();
     }
 
@@ -51,7 +50,6 @@ var plugin = module.exports = function (options) {
       }
     });
     lastFile = null; // reset
-    // stream.emit("end");
     return callback();
   });
 };
