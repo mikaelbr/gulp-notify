@@ -3,7 +3,7 @@
 
 var gulp = require('gulp'),
     should = require('should'),
-    through = require('through'),
+    through = require('through2'),
     gutil = require('gulp-util'),
     join = require('path').join,
     notify = require('../');
@@ -233,20 +233,21 @@ describe('gulp output stream', function() {
           numFilesAfter = 0;
 
       instream
-        .pipe(through(function (file) {
+        .pipe(through.obj(function (file, enc, cb) {
           numFilesBefore++;
-          this.emit("data", file);
-        }, function () {
+          this.push(file);
+          cb();
+        }, function (cb) {
           numFilesBefore.should.equal(3);
-          this.emit("end");
+          cb();
         }))
         .pipe(outstream)
-        .pipe(through(function (file) {
+        .pipe(through.obj(function (file, enc, cb) {
           numFilesAfter++;
-          this.emit("data", file);
-        }, function () {
+          this.push(file);
+          cb();
+        }, function (callback) {
           numFilesAfter.should.equal(3);
-          this.emit("end");
           done();
         }));
     });
@@ -272,8 +273,9 @@ describe('gulp output stream', function() {
         });
 
       gulp.src(srcFile)
-        .pipe(through(function (file) {
+        .pipe(through.obj(function (file, enc, cb) {
           this.emit("error", new gutil.PluginError("testPlugin", testMessage));
+          cb();
         }))
         .on("error", onError)
     });
