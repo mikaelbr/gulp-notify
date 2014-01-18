@@ -25,14 +25,14 @@
     "test": "mocha -R spec"
   },
   "dependencies": {
-    "gulp-util": ">=2.2.9",
     "node-notifier": ">=1.0.0-beta2",
-    "through2": "~0.4.0"
+    "through2": "~0.4.0",
+    "gulp-util": "~2.2.12"
   },
   "devDependencies": {
-    "mocha": "~1.14.0",
-    "should": "~2.1.0",
-    "gulp": "~3.2.2"
+    "mocha": "~1.17.0",
+    "should": "~3.0.1",
+    "gulp": "~3.4.0"
   },
   "engines": {
     "node": ">=0.8.0",
