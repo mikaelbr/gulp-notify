@@ -93,6 +93,33 @@ gulp.src("../test/fixtures/*")
       }));
 ```
 
+## Examples
+
+To see all examples run from root:
+
+```sh
+$ gulp --gulpfile examples/gulpfile.js --tasks
+[gulp] Using file /Users/example/gulp-notify/examples/gulpfile.js
+[gulp] Working directory changed to /Users/example/gulp-notify/examples
+[gulp] Tasks for /Users/example/gulp-notify/examples/gulpfile.js
+[gulp] ├── multiple
+[gulp] ├── one
+[gulp] ├── message
+[gulp] ├── function
+[gulp] ├── onlast
+[gulp] └── error
+```
+
+To run an example:
+```sh
+$ gulp --gulpfile examples/gulpfile.js multiple
+[gulp] Using file /Users/example/gulp-notify/examples/gulpfile.js
+[gulp] Working directory changed to /Users/example/gulp-notify/examples
+[gulp] Running 'multiple'...
+[gulp] Finished 'multiple' in 3.75 ms
+```
+
+
 ## License
 
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
