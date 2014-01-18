@@ -1,6 +1,6 @@
 {
   "name": "gulp-notify",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A plugin for Gulp to send messages to Mac Notification Center",
   "keywords": [
     "gulpplugin",
