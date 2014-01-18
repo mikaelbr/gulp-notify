@@ -1,7 +1,7 @@
 
 var gulp = require('gulp');
 var notify = require('../');
-var through = require('through');
+var through = require('through2');
 
 gulp.task("multiple", function () {
   gulp.src("../test/fixtures/*")
