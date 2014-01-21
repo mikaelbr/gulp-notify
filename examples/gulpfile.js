@@ -37,8 +37,11 @@ gulp.task("onlast", function () {
 
 gulp.task("error", function () {
   gulp.src("../test/fixtures/*")
-      .pipe(through(function () {
+      .pipe(through.obj(function () {
         this.emit("error", "Something happend: Error message!")
       }))
-      .on("error", notify.onError());
+      .on("error", notify.onError())
+      .on("error", function (err) {
+        console.log("Error:", err);
+      })
 });
