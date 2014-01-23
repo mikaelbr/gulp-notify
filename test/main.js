@@ -6,6 +6,7 @@ var gulp = require('gulp'),
     through = require('through2'),
     gutil = require('gulp-util'),
     join = require('path').join,
+    fs = require('fs'),
     notify = require('../');
 
 var mockGenerator = function (tester) {
@@ -279,5 +280,40 @@ describe('gulp output stream', function() {
         }))
         .on("error", onError)
     });
+
+    it('should handle streamed files', function (done) {
+      var expectedFile = new gutil.File({
+        path: "test/fixtures/1.txt",
+        cwd: "test/",
+        base: "test/fixtures/",
+        contents: fs.createReadStream("test/fixtures/1.txt")
+      });
+
+      var testString = "testString";
+
+      var outstream = notify({
+            message: testString,
+            notifier: mockGenerator(function (opts) {
+              should.exist(opts);
+              should.exist(opts.title);
+              should.exist(opts.message);
+              String(opts.message).should.equal(testString);
+            })
+          });
+
+      outstream.on('error', function (err) {
+        should.not.exist(err);
+      });
+
+      outstream.on('data', function(file) {
+        should.exist(file);
+        should.exist(file.isStream());
+        should.exist(file.path);
+        should.exist(file.contents);
+        done();
+      });
+
+      outstream.write(expectedFile);
+    })
   });
 });
