@@ -314,6 +314,6 @@ describe('gulp output stream', function() {
       });
 
       outstream.write(expectedFile);
-    })
+    });
   });
 });
