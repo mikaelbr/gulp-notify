@@ -268,7 +268,7 @@ describe('gulp output stream', function() {
             should.exist(opts.title);
             should.exist(opts.message);
             String(opts.message).should.equal(testMessage);
-            String(opts.title).should.equal("Error in Gulpfile");
+            String(opts.title).should.equal("Error running Gulp");
             done();
           })
         });

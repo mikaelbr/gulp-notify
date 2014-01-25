@@ -56,7 +56,6 @@ var plugin = module.exports = function (options) {
 
 module.exports.onError = function (options) {
   options = options || {};
-
   var reporter = options.notifier || notifier.notify;
 
   return function (error) {
@@ -85,8 +84,14 @@ function constructOptions (options, object) {
   var message = object.path || object.message || object,
       title = "Gulp notification";
 
-  if (object.message) {
-    title = "Error in Gulpfile";
+  if (object instanceof Error) {
+    title = "Error running Gulp";
+
+    message = object.message || object;
+    return {
+      title: title,
+      message: message
+    };
   }
 
   if (typeof options === "function") {
