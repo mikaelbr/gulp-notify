@@ -216,7 +216,7 @@ describe('gulp output stream', function() {
         done();
       });
 
-      instream.pipe(outstream)
+      instream.pipe(outstream);
     });
 
 
@@ -314,6 +314,76 @@ describe('gulp output stream', function() {
       });
 
       outstream.write(expectedFile);
+    });
+
+    it('should support lodash template for titles and messages', function (done) {
+      var expectedFile = new gutil.File({
+        path: "test/fixtures/1.txt",
+        cwd: "test/",
+        base: "test/fixtures/",
+        contents: fs.createReadStream("test/fixtures/1.txt")
+      });
+
+      var testString = "Template: <%= file.relative %>";
+      var expectedString = "Template: 1.txt";
+
+      var outstream = notify({
+            message: testString,
+            title: testString,
+            notifier: mockGenerator(function (opts) {
+              should.exist(opts);
+              should.exist(opts.title);
+              should.exist(opts.message);
+              String(opts.message).should.equal(expectedString);
+              String(opts.title).should.equal(expectedString);
+            })
+          });
+
+      outstream.on('error', function (err) {
+        should.not.exist(err);
+      });
+
+      outstream.on('data', function(file) {
+        should.exist(file);
+        should.exist(file.path);
+        should.exist(file.contents);
+        done();
+      });
+
+      outstream.write(expectedFile);
+    });
+
+    it('should support lodash template for titles and messages when onLast', function (done) {
+      var
+        testSuffix = "tester",
+        srcFile = join(__dirname, "./fixtures/*"),
+        instream = gulp.src(srcFile),
+        numFunctionCalls = 0,
+        outstream = notify({
+          onLast: true,
+          message: 'Template: <%= file.relative %>',
+          notifier: mockGenerator(function (opts) {
+            should.exist(opts);
+            should.exist(opts.title);
+            should.exist(opts.message);
+            opts.message.should.startWith('Template:')
+            opts.message.should.endWith('.txt')
+            numFunctionCalls++;
+          })
+        });
+
+      outstream.on('data', function(file) {
+        should.exist(file);
+        should.exist(file.path);
+        should.exist(file.contents);
+      });
+
+      outstream.on('end', function() {
+        numFunctionCalls.should.equal(1);
+        done();
+      });
+
+      instream.pipe(outstream);
     });
   });
 });

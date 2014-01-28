@@ -8,6 +8,7 @@ var through = require("through2"),
 var plugin = module.exports = function (options) {
 
   options = options || {};
+  var templateOptions = options.templateOptions || {};
 
   var reporter = options.notifier || notifier.notify;
   var lastFile = null;
@@ -16,7 +17,7 @@ var plugin = module.exports = function (options) {
     var stream = this;
     stream.pause();
 
-    report(reporter, file, options, function (err) {
+    report(reporter, file, options, templateOptions, function (err) {
       if (err) {
         stream.emit("error", err);
       } else {
@@ -43,7 +44,7 @@ var plugin = module.exports = function (options) {
       return callback();
     }
 
-    report(reporter, lastFile, options, function (err, file) {
+    report(reporter, lastFile, options, templateOptions, function (err, file) {
       if (err) {
         stream.emit("error", err);
         return callback();
@@ -64,14 +65,14 @@ module.exports.onError = function (options) {
 };
 
 
-function report (reporter, message, options, callback) {
+function report (reporter, message, options, templateOptions, callback) {
   var self = this;
   callback = callback || function () {};
   if (!reporter) return callback(new gutil.PluginError("gulp-notify", "No reporter specified."));
 
   // Try/catch the only way to go to ensure catching all errors? Domains?
   try {
-    reporter(constructOptions(options, message), function (err) {
+    reporter(constructOptions(options, message, templateOptions), function (err) {
       if (err) return callback(new gutil.PluginError("gulp-notify", err));
       return callback();
     });
@@ -80,7 +81,7 @@ function report (reporter, message, options, callback) {
   }
 }
 
-function constructOptions (options, object) {
+function constructOptions (options, object, templateOptions) {
   var message = object.path || object.message || object,
       title = "Gulp notification";
 
@@ -117,7 +118,13 @@ function constructOptions (options, object) {
   }
 
   return {
-    title: title,
-    message: message
+    title: gutil.template(title, {
+      file: object,
+      options: templateOptions
+    }),
+    message: gutil.template(message, {
+      file: object,
+      options: templateOptions
+    })
   };
 }

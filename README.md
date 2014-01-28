@@ -36,10 +36,13 @@ gulp.src("./src/test.ext")
 A message to notify per data on stream.
 
 ### notify(Function)
-Type: `function(file)`  
+Type: `function(VinylFile)`  
 
 The result of the function is used as message.
-File from gulp stream passed in as argument.
+Vinyl File from gulp stream passed in as argument.
+
+The returned string can be a lodash template as 
+it is passed through [gulp-util.template](https://github.com/gulpjs/gulp-util#templatestring-data).
 
 ### notify(options)
 
@@ -56,14 +59,47 @@ on each file.
 Type: `String`  
 Default: File path in stream
 
-The message you wish to attach to file.
+The message you wish to attach to file. The string can be a
+lodash template as it is passed through [gulp-util.template](https://github.com/gulpjs/gulp-util#templatestring-data).
+
+Example: `Created <%= file.relative %>`.
+
+##### as function
+Type: `Function(vinylFile)`  
+
+See `notify(Function)`.
 
 #### options.title
 Type: `String`  
 Default: "Gulp Notification"
 
-The title of the notification
+The title of the notification. The string can be a
+lodash template as it is passed through [gulp-util.template](https://github.com/gulpjs/gulp-util#templatestring-data).
 
+Example: `Created <%= file.relative %>`.
+
+##### as function
+Type: `Function(vinylFile)`  
+
+See `notify(Function)`.
+
+#### options.templateOptions
+Type: `Object`  
+Default: {}
+
+Object passed to the `lodash` template, for additional properties passed to the template.
+
+Examples:
+
+```javascript
+gulp.src("../test/fixtures/*")
+    .pipe(notify({
+      message: "Generated file: <%= file.relative %> @ <%= options.date %>",
+      templateOptions: {
+        date: new Date()
+      }
+    }))
+```
 
 #### options.notifier
 Type: `Function(options, callback)`  
@@ -92,6 +128,8 @@ gulp.src("../test/fixtures/*")
         return "Message to the notifier: " + error.message;
       }));
 ```
+
+The `onError()` end point does not support `lodash.template`.
 
 ## Examples
 
