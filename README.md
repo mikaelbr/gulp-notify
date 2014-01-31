@@ -34,6 +34,8 @@ gulp.src("./src/test.ext")
 ### notify(String)
 
 A message to notify per data on stream.
+The string can be a lodash template as
+it is passed through [gulp-util.template](https://github.com/gulpjs/gulp-util#templatestring-data).
 
 ### notify(Function)
 Type: `function(VinylFile)`  
