@@ -72,7 +72,10 @@ function report (reporter, message, options, templateOptions, callback) {
 
   // Try/catch the only way to go to ensure catching all errors? Domains?
   try {
-    reporter(constructOptions(options, message, templateOptions), function (err) {
+    var reporterOptions = constructOptions(options, message, templateOptions);
+    if(!reporterOptions.message) return callback();
+
+    reporter(reporterOptions, function (err) {
       if (err) return callback(new gutil.PluginError("gulp-notify", err));
       return callback();
     });
