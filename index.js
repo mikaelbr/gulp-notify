@@ -15,7 +15,6 @@ var plugin = module.exports = function (options) {
 
   function notify (file, enc, callback) {
     var stream = this;
-    stream.pause();
 
     report(reporter, file, options, templateOptions, function (err) {
       if (err) {
@@ -23,7 +22,6 @@ var plugin = module.exports = function (options) {
       } else {
         stream.push(file);
       }
-      stream.resume();
       callback();
     });
   }
