@@ -24,10 +24,20 @@ Then, add it to your `gulpfile.js`:
 
 var notify = require("gulp-notify");
 gulp.src("./src/test.ext")
-  .pipe(notify({
-    message: "Hello Gulp!"
-  }));
+  .pipe(notify("Hello Gulp!"));
 ```
+
+Or with template
+
+
+```javascript
+
+var notify = require("gulp-notify");
+gulp.src("./src/test.ext")
+  .pipe(notify("Found file: <%= file.relative %>!"));
+```
+
+See [examples](examples/gulpfile.js) for more og the API section for various inputs.
 
 ## API
 
