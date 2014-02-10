@@ -353,6 +353,31 @@ describe('gulp output stream', function() {
       outstream.write(expectedFile);
     });
 
+    it('should support lodash template for titles and messages on onError', function (done) {
+      var testString = "Template: <%= error.message %>";
+      var expectedString = "Template: test";
+      var srcFile = join(__dirname, "./fixtures/*");
+      var onError = notify.onError({
+            message: testString,
+            title: testString,
+            notifier: mockGenerator(function (opts) {
+              should.exist(opts);
+              should.exist(opts.title);
+              should.exist(opts.message);
+              String(opts.message).should.equal(expectedString);
+              String(opts.title).should.equal(expectedString);
+              done();
+            })
+          });
+
+      gulp.src(srcFile)
+        .pipe(through.obj(function (file, enc, cb) {
+          this.emit("error", new gutil.PluginError("testPlugin", "test"));
+          cb();
+        }))
+        .on('error', onError);
+    });
+
     it('should support lodash template for titles and messages when onLast', function (done) {
       var
         testSuffix = "tester",
