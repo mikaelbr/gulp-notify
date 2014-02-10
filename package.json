@@ -27,7 +27,8 @@
   "dependencies": {
     "node-notifier": ">=1.1.1-2",
     "through2": "~0.4.0",
-    "gulp-util": "~2.2.12"
+    "gulp-util": "~2.2.12",
+    "lodash.template": "~2.4.1"
   },
   "devDependencies": {
     "mocha": "~1.17.0",

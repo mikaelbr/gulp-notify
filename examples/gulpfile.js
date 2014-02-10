@@ -60,9 +60,9 @@ gulp.task("onlast", function () {
 gulp.task("error", function () {
   gulp.src("../test/fixtures/*")
       .pipe(through.obj(function () {
-        this.emit("error", "Something happend: Error message!")
+        this.emit("error", new Error("Something happend: Error message!"))
       }))
-      .on("error", notify.onError())
+      .on("error", notify.onError('Error: <%= error.message %>'))
       .on("error", function (err) {
         console.log("Error:", err);
       })

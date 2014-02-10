@@ -1,6 +1,7 @@
 var through = require("through2"),
     path = require("path"),
     gutil = require("gulp-util"),
+    template = require("lodash.template"),
     notifier = require("node-notifier");
 
 "use strict";
@@ -81,17 +82,7 @@ function report (reporter, message, options, templateOptions, callback) {
 
 function constructOptions (options, object, templateOptions) {
   var message = object.path || object.message || object,
-      title = "Gulp notification";
-
-  if (object instanceof Error) {
-    title = "Error running Gulp";
-
-    message = object.message || object;
-    return {
-      title: title,
-      message: message
-    };
-  }
+      title = !(object instanceof Error) ? "Gulp notification" : "Error running Gulp";
 
   if (typeof options === "function") {
     message = options(object);
@@ -113,6 +104,21 @@ function constructOptions (options, object, templateOptions) {
 
   if (typeof options === "string") {
     message = options;
+  }
+
+  if (object instanceof Error) {
+    var titleTemplate = template(title);
+    var messageTemplate = template(message);
+    return {
+      title: titleTemplate({
+        error: object,
+        options: templateOptions
+      }),
+      message: messageTemplate({
+        error: object,
+        options: templateOptions
+      })
+    };
   }
 
   return {
