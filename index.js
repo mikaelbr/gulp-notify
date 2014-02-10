@@ -1,5 +1,4 @@
 var through = require("through2"),
-    path = require("path"),
     gutil = require("gulp-util"),
     template = require("lodash.template"),
     notifier = require("node-notifier");
