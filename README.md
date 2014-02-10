@@ -126,18 +126,39 @@ will contain both title and message.
 
 ### notify.onError()
 
-Same API as using `notify()`, but instead of being passed `vinyl File` an
-error object gets sent.
+The exact same API as using `notify()`, but where a `vinyl File`
+is passed, the error object is passed instead.
 
 Example:
 
 ```javascript
 gulp.src("../test/fixtures/*")
       .pipe(through(function () {
-        this.emit("error", "Something happend: Error message!")
+        this.emit("error", new Error("Something happend: Error message!"))
       }))
       .on("error", notify.onError(function (error) {
         return "Message to the notifier: " + error.message;
+      }));
+```
+
+Or simply:
+
+```javascript
+gulp.src("../test/fixtures/*")
+      .pipe(through(function () {
+        this.emit("error", new Error("Something happend: Error message!"))
+      }))
+      .on("error", notify.onError("Error: <%= error.message %>"));
+```
+
+```javascript
+gulp.src("../test/fixtures/*")
+      .pipe(through(function () {
+        this.emit("error", new Error("Something happend: Error message!"))
+      }))
+      .on("error", notify.onError({
+        message: "Error: <%= error.message %>",
+        title: "Error running something"
       }));
 ```
 
