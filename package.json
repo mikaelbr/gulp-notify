@@ -31,9 +31,9 @@
     "lodash.template": "~2.4.1"
   },
   "devDependencies": {
-    "mocha": "~1.17.0",
-    "should": "~3.0.1",
-    "gulp": "~3.4.0",
+    "mocha": "~1.17.1",
+    "should": "~3.1.2",
+    "gulp": "~3.5.2",
     "gulp-plumber": "~0.5.6"
   },
   "engines": {
