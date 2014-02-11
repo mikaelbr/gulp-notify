@@ -4,6 +4,7 @@
 var gulp = require('gulp'),
     should = require('should'),
     through = require('through2'),
+    plumber = require('gulp-plumber'),
     gutil = require('gulp-util'),
     join = require('path').join,
     fs = require('fs'),
@@ -74,6 +75,76 @@ describe('gulp output stream', function() {
       });
 
       instream.pipe(outstream);
+    });
+
+    it('should pass on files', function(done) {
+      var
+        testSuffix = "tester",
+        srcFile = join(__dirname, "./fixtures/*"),
+        instream = gulp.src(srcFile),
+        outstream = notify({
+          notifier: mockGenerator()
+        });
+
+      var numFilesBefore = 0,
+          numFilesAfter = 0;
+
+      instream
+        .pipe(through.obj(function (file, enc, cb) {
+          numFilesBefore++;
+          this.push(file);
+          cb();
+        }, function (cb) {
+          numFilesBefore.should.equal(3);
+          cb();
+        }))
+        .pipe(outstream)
+        .pipe(through.obj(function (file, enc, cb) {
+          numFilesAfter++;
+          this.push(file);
+          cb();
+        }, function (callback) {
+          numFilesAfter.should.equal(3);
+          done();
+        }));
+    });
+
+    it('should pass on files even on error in notifier (with use of plumber)', function(done) {
+      var
+        testString = "tester",
+        srcFile = join(__dirname, "./fixtures/*"),
+        instream = gulp.src(srcFile),
+        outstream = notify({
+          notifier: function (options, callback) {
+            callback(new Error(testString));
+          }
+        });
+
+      var numFilesBefore = 0,
+          numFilesAfter = 0;
+
+      instream
+        .pipe(plumber())
+        .pipe(through.obj(function (file, enc, cb) {
+          numFilesBefore++;
+          this.push(file);
+          cb();
+        }, function (cb) {
+          numFilesBefore.should.equal(3);
+          cb();
+        }))
+        .pipe(outstream)
+        .on('error', function (error) {
+          error.message.should.equal(testString);
+        })
+        .pipe(through.obj(function (file, enc, cb) {
+          numFilesAfter++;
+          this.push(file);
+          cb();
+        }, function (callback) {
+          numFilesAfter.should.equal(3);
+          done();
+        }));
     });
 
 

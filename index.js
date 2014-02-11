@@ -17,11 +17,8 @@ var plugin = module.exports = function (options) {
     var stream = this;
 
     report(reporter, file, options, templateOptions, function (err) {
-      if (err) {
-        stream.emit("error", err);
-      } else {
-        stream.push(file);
-      }
+      err && stream.emit("error", err);
+      stream.push(file);
       callback();
     });
   }
