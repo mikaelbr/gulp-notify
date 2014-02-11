@@ -39,6 +39,15 @@ gulp.src("./src/test.ext")
 
 See [examples](examples/gulpfile.js) for more og the API section for various inputs.
 
+## Notes/tip
+
+`gulp-notify` passes on the `vinyl files` even on error. So if you are
+using [`gulp-plumber`](https://github.com/floatdrop/gulp-plumber) the run
+will not break if the notifier returns an error.
+
+If you want to notify on errors [`gulp-plumber`](https://github.com/floatdrop/gulp-plumber)
+can be used to not break the run and force you to have to restart gulp.
+
 ## API
 
 ### notify(String)
