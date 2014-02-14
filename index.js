@@ -59,6 +59,21 @@ module.exports.onError = function (options) {
   };
 };
 
+module.exports.withReporter = function (reporter) {
+  if (!reporter) throw new gutil.PluginError("gulp-notify", "No custom reporter defined.");
+  return function (options) {
+    options = options || {};
+
+    if (typeof options !== "object") {
+      options = {
+        message: options
+      };
+    }
+
+    options.notifier = reporter;
+    return plugin(options);
+  };
+};
 
 function report (reporter, message, options, templateOptions, callback) {
   var self = this;

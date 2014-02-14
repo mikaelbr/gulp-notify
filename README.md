@@ -5,7 +5,7 @@
 ## Information
 | Package       | gulp-notify  |
 | ------------- |--------------|
-| Description   | Send messages to Mac Notification Center or Linux notifications (using `notify-send`) using the [node-notifier](https://github.com/mikaelbr/node-notifier) module. Can also specify custom notifier (e.g. Growl notification). |
+| Description   | Send messages to Mac Notification Center or Linux notifications (using `notify-send`) using the [node-notifier](https://github.com/mikaelbr/node-notifier) module. Can also [specify custom notifier](#) (e.g. Growl notification). |
 | Node Version  | >= 0.8      |
 
 **Note: Without overriding the notifier, Mac OS X >= 10.8 or as of v0.3.2, Linux with `notify-send` installed is required for this to run.**
@@ -132,6 +132,46 @@ The function expects two arguments: options and callback.
 The callback must be called when the notification is finished. Options
 will contain both title and message.
 
+*See `notify.withReporter` for syntactic sugar.*
+
+
+### notify.withReporter(Function)
+Type: `Reporter`
+
+Wraps `options.notifier` to return a new notify-function only using
+the passed in reporter.
+
+Example:
+
+```javascript
+var custom = notify.withReporter(function (options, callback) {
+  console.log("Title:", options.title);
+  console.log("Message:", options.message);
+  callback();
+});
+
+gulp.src("../test/fixtures/1.txt")
+    .pipe(custom("This is a message."));
+
+```
+
+This will be the same as
+
+```javascript
+
+gulp.src("../test/fixtures/1.txt")
+    .pipe(notify({
+      message: "This is a message."
+      notifier: function (options, callback) {
+        console.log("Title:", options.title);
+        console.log("Message:", options.message);
+        callback();
+      }
+    }));
+```
+
+But much, much prettier.
+
 
 ### notify.onError()
 
@@ -184,6 +224,7 @@ $ gulp --gulpfile examples/gulpfile.js --tasks
 [gulp] Tasks for /Users/example/gulp-notify/examples/gulpfile.js
 [gulp] ├── multiple
 [gulp] ├── one
+[gulp] ├── customReporter
 [gulp] ├── message
 [gulp] ├── function
 [gulp] ├── onlast
@@ -198,6 +239,13 @@ $ gulp --gulpfile examples/gulpfile.js multiple
 [gulp] Running 'multiple'...
 [gulp] Finished 'multiple' in 3.75 ms
 ```
+
+## Changelog
+
+# `v0.5.0`
+
+1. Added API end point `notify.withReporter(Reporter)` as syntactic suger for custom reporter
+2. Updated dependency for node-notfier - now checking if `notify-send` is installed on the Linux box
 
 
 ## License

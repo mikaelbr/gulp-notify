@@ -18,6 +18,18 @@ gulp.task("message", function () {
       .pipe(notify("This is a message."));
 });
 
+
+gulp.task("customReporter", function () {
+  var custom = notify.withReporter(function (options, callback) {
+    console.log("Title:", options.title);
+    console.log("Message:", options.message);
+    callback();
+  });
+
+  gulp.src("../test/fixtures/1.txt")
+      .pipe(custom("This is a message."));
+});
+
 gulp.task("template", function () {
   gulp.src("../test/fixtures/1.txt")
       .pipe(notify("Template: <%= file.relative %>"));

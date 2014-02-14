@@ -31,17 +31,28 @@ describe('gulp output stream', function() {
       done();
     });
 
+    it('should allow setting of own reporter', function(done) {
+      var notifier = notify.withReporter(mockGenerator);
+      var stream = notifier();
+      should.exist(stream);
+      should.exist(stream.on);
+      should.exist(stream.pipe);
+      done();
+    });
+
     it('should call notifier with title and message', function(done) {
+
+      var mockedNotify = notify.withReporter(mockGenerator(function (opts) {
+        should.exist(opts);
+        should.exist(opts.title);
+        should.exist(opts.message);
+        String(opts.message).should.equal(testString);
+      }));
+
       var testString = "this is a test",
           instream = gulp.src(join(__dirname, "./fixtures/*.txt")),
-          outstream = notify({
-            message: testString,
-            notifier: mockGenerator(function (opts) {
-              should.exist(opts);
-              should.exist(opts.title);
-              should.exist(opts.message);
-              String(opts.message).should.equal(testString);
-            })
+          outstream = mockedNotify({
+            message: testString
           });
 
       outstream.on('data', function(file) {
@@ -58,13 +69,15 @@ describe('gulp output stream', function() {
     });
 
     it('should emit error when sub-module returns error', function(done) {
+      var mockedNotify = notify.withReporter(function (options, callback) {
+        callback(new Error(testString));
+      });
+
+
       var testString = "testString",
           instream = gulp.src(join(__dirname, "./fixtures/*.txt")),
-          outstream = notify({
-            message: testString,
-            notifier: function (options, callback) {
-              callback(new Error(testString));
-            }
+          outstream = mockedNotify({
+            message: testString
           });
 
       outstream.on('error', function (error) {
@@ -78,13 +91,13 @@ describe('gulp output stream', function() {
     });
 
     it('should pass on files', function(done) {
+      var mockedNotify = notify.withReporter(mockGenerator());
+
       var
         testSuffix = "tester",
         srcFile = join(__dirname, "./fixtures/*"),
         instream = gulp.src(srcFile),
-        outstream = notify({
-          notifier: mockGenerator()
-        });
+        outstream = mockedNotify();
 
       var numFilesBefore = 0,
           numFilesAfter = 0;
