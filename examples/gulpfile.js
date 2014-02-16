@@ -2,6 +2,7 @@
 var gulp = require('gulp');
 var notify = require('../');
 var through = require('through2');
+var plumber = require('gulp-plumber');
 
 gulp.task("multiple", function () {
   gulp.src("../test/fixtures/*")
@@ -71,11 +72,13 @@ gulp.task("onlast", function () {
 
 gulp.task("error", function () {
   gulp.src("../test/fixtures/*")
-      .pipe(through.obj(function () {
-        this.emit("error", new Error("Something happend: Error message!"))
+      .pipe(through.obj(function (file, enc, callback) {
+        this.emit("error", new Error("Something happend: Error message!"));
+        callback();
       }))
       .on("error", notify.onError('Error: <%= error.message %>'))
       .on("error", function (err) {
         console.log("Error:", err);
       })
 });
+
