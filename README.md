@@ -213,6 +213,23 @@ gulp.src("../test/fixtures/*")
 
 The `onError()` end point does not support `lodash.template`.
 
+### notify.setLogLevel(level)
+Type: `Integer`  
+Default: `1`
+
+Set if logger should be used or not. If log level is set to 0,
+no logging will be used. If logging is set to 1, the title and
+message passed to `gulp-notify` will be logged like so:
+
+```sh
+➜  gulp-notify git:(master) ✗ gulp --gulpfile examples/gulpfile.js one
+[gulp] Using file /Users/example/gulp-notify/examples/gulpfile.js
+[gulp] Working directory changed to /Users/example/repos/gulp-notify/examples
+[gulp] Running 'one'...
+[gulp] Finished 'one' in 4.08 ms
+[gulp] gulp-notify: [Gulp notification] /Users/example/gulp-notify/test/fixtures/1.txt
+```
+
 ## Examples
 
 To see all examples run from root:

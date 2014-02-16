@@ -19,6 +19,8 @@ var mockGenerator = function (tester) {
 };
 
 describe('gulp output stream', function() {
+  notify.setLogLevel(0);
+
   describe('notify()', function() {
 
     it('should return a stream', function(done) {

@@ -5,6 +5,8 @@ var through = require("through2"),
 
 "use strict";
 
+var logger = gutil.log;
+
 var plugin = module.exports = function (options) {
 
   options = options || {};
@@ -75,6 +77,18 @@ module.exports.withReporter = function (reporter) {
   };
 };
 
+module.exports.setLogLevel = function (logLevel) {
+  logger = !!logLevel ? gutil.log : null;
+};
+
+function logError (options) {
+  if (!logger) return;
+  logger(gutil.colors.cyan('gulp-notify') + ':',
+           '[' + gutil.colors.blue(options.title) + ']',
+            gutil.colors.red(options.message)
+           );
+}
+
 function report (reporter, message, options, templateOptions, callback) {
   var self = this;
   callback = callback || function () {};
@@ -82,7 +96,9 @@ function report (reporter, message, options, templateOptions, callback) {
 
   // Try/catch the only way to go to ensure catching all errors? Domains?
   try {
-    reporter(constructOptions(options, message, templateOptions), function (err) {
+    var options = constructOptions(options, message, templateOptions);
+    logError(options);
+    reporter(options, function (err) {
       if (err) return callback(new gutil.PluginError("gulp-notify", err));
       return callback();
     });
