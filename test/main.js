@@ -18,10 +18,16 @@ var mockGenerator = function (tester) {
   };
 };
 
+var originalLogger = notify.logger();
+
 describe('gulp output stream', function() {
-  notify.setLogLevel(0);
 
   describe('notify()', function() {
+
+    beforeEach(function () {
+      notify.setLogLevel(0);
+      notify.logger(originalLogger);
+    });
 
     it('should return a stream', function(done) {
       var stream = notify({
@@ -42,7 +48,56 @@ describe('gulp output stream', function() {
       done();
     });
 
+    it('should allow setting of logLevel', function(done) {
+      var notifier = notify.withReporter(mockGenerator);
+      should.exist(notify.setLogLevel);
+      should.exist(notify.logger);
+      done();
+    });
+
+    it('should log error on log level 1', function(done) {
+      var srcFile = join(__dirname, "./fixtures/1.txt");
+      notify.setLogLevel(1);
+      notify.logger(function (options) {
+        should.exist(true);
+        done();
+      });
+      var notifier = notify.withReporter(mockGenerator);
+
+      gulp.src(srcFile)
+        .pipe(through.obj(function (file, enc, cb) {
+          this.emit("error", new gutil.PluginError("testPlugin", "foo"));
+          cb();
+        }))
+        .on("error", notifier.onError())
+
+    });
+
+    it('should not log on log level 0', function(done) {
+      var srcFile = join(__dirname, "./fixtures/1.txt");
+      var hasBeenCalled = false;
+      notify.setLogLevel(0);
+
+      notify.logger(function () {
+        hasBeenCalled = true;
+        should.not.exist(arguments);
+      });
+
+      var notifier = notify.withReporter(mockGenerator(function () {
+        should(hasBeenCalled).equal(false);
+        done();
+      }));
+
+      gulp.src(srcFile)
+        .pipe(through.obj(function (file, enc, cb) {
+          this.emit("error", new gutil.PluginError("testPlugin", "foo"));
+          cb();
+        }))
+        .on("error", notifier.onError())
+    });
+
     it('should call notifier with title and message', function(done) {
+      var testString = "this is a test";
 
       var mockedNotify = notify.withReporter(mockGenerator(function (opts) {
         should.exist(opts);
@@ -51,8 +106,8 @@ describe('gulp output stream', function() {
         String(opts.message).should.equal(testString);
       }));
 
-      var testString = "this is a test",
-          instream = gulp.src(join(__dirname, "./fixtures/*.txt")),
+
+      var instream = gulp.src(join(__dirname, "./fixtures/*.txt")),
           outstream = mockedNotify({
             message: testString
           });

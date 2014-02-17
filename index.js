@@ -5,6 +5,7 @@ var through = require("through2"),
 
 "use strict";
 
+var logLevel = 2;
 var logger = gutil.log;
 
 var plugin = module.exports = function (options) {
@@ -92,13 +93,20 @@ module.exports.withReporter = function (reporter) {
   return inner;
 };
 
-module.exports.setLogLevel = function (logLevel) {
-  logger = !!logLevel ? gutil.log : null;
+module.exports.setLogLevel = function (newLogLevel) {
+  logLevel = newLogLevel;
 };
 
-function logError (options, color) {
-  if (!logger) return;
-  color = color || 'red';
+module.exports.logger = function (newLogger) {
+  if (!newLogger) return logger;
+  logger = newLogger;
+};
+
+function logError (options, isError) {
+  if (!logLevel) return;
+  if (logLevel === 1 && !isError) return;
+
+  color = isError ? "red" : "green";
   if (!gutil.colors[color]) return;
   logger(gutil.colors.cyan('gulp-notify') + ':',
            '[' + gutil.colors.blue(options.title) + ']',
@@ -114,7 +122,7 @@ function report (reporter, message, options, templateOptions, callback) {
   // Try/catch the only way to go to ensure catching all errors? Domains?
   try {
     var options = constructOptions(options, message, templateOptions);
-    logError(options, message instanceof Error ? "red" : "green");
+    logError(options, (message instanceof Error));
     reporter(options, function (err) {
       if (err) return callback(new gutil.PluginError("gulp-notify", err));
       return callback();

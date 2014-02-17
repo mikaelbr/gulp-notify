@@ -91,6 +91,7 @@ gulp.task("customError", function () {
   });
 
   gulp.src("../test/fixtures/*")
+      .pipe(custom('<%= file.relative %>'))
       .pipe(through.obj(function (file, enc, callback) {
         this.emit("error", new Error("Something happend: Error message!"));
         callback();

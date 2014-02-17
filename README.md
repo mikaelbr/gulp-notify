@@ -215,10 +215,17 @@ The `onError()` end point does not support `lodash.template`.
 
 ### notify.setLogLevel(level)
 Type: `Integer`  
-Default: `1`
+Default: `2`
 
 Set if logger should be used or not. If log level is set to 0,
-no logging will be used. If logging is set to 1, the title and
+no logging will be used.
+
+* `0`: No logging
+* `1`: Log on error
+* `2`: Log both on error and regular notification.
+
+
+If logging is set to `> 0`, the title and
 message passed to `gulp-notify` will be logged like so:
 
 ```sh
