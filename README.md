@@ -259,11 +259,9 @@ $ gulp --gulpfile examples/gulpfile.js multiple
 
 ## Changelog
 
-# `v0.6.2`
-1. Added `.onError` method on object created by `withReporter`
-
 # `v0.6.1`
-1. Added colored logging on success / error
+1. Added `.onError` method on object created by `withReporter`
+2. Added colored logging on success / error
 
 # `v0.5.0`
 
