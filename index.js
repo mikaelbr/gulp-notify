@@ -55,7 +55,6 @@ var plugin = module.exports = function (options) {
 module.exports.onError = function (options) {
   options = options || {};
   var reporter = options.notifier || notifier.notify;
-
   return function (error) {
     report(reporter, error, options);
   };
@@ -81,11 +80,13 @@ module.exports.setLogLevel = function (logLevel) {
   logger = !!logLevel ? gutil.log : null;
 };
 
-function logError (options) {
+function logError (options, color) {
   if (!logger) return;
+  color = color || 'red';
+  if (!gutil.colors[color]) return;
   logger(gutil.colors.cyan('gulp-notify') + ':',
            '[' + gutil.colors.blue(options.title) + ']',
-            gutil.colors.red(options.message)
+            gutil.colors[color].call(gutil.colors, options.message)
            );
 }
 
@@ -97,7 +98,7 @@ function report (reporter, message, options, templateOptions, callback) {
   // Try/catch the only way to go to ensure catching all errors? Domains?
   try {
     var options = constructOptions(options, message, templateOptions);
-    logError(options);
+    logError(options, message instanceof Error ? "red" : "green");
     reporter(options, function (err) {
       if (err) return callback(new gutil.PluginError("gulp-notify", err));
       return callback();
