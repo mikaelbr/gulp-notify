@@ -52,7 +52,7 @@ var plugin = module.exports = function (options) {
   });
 };
 
-module.exports.onError = function (options) {
+var onError = module.exports.onError = function (options) {
   options = options || {};
   var reporter = options.notifier || notifier.notify;
   return function (error) {
@@ -62,7 +62,8 @@ module.exports.onError = function (options) {
 
 module.exports.withReporter = function (reporter) {
   if (!reporter) throw new gutil.PluginError("gulp-notify", "No custom reporter defined.");
-  return function (options) {
+
+  var inner = function (options) {
     options = options || {};
 
     if (typeof options !== "object") {
@@ -74,6 +75,21 @@ module.exports.withReporter = function (reporter) {
     options.notifier = reporter;
     return plugin(options);
   };
+
+  inner.onError = function (options) {
+    options = options || {};
+
+    if (typeof options !== "object") {
+      options = {
+        message: options
+      };
+    }
+
+    options.notifier = reporter;
+    return onError(options);
+  }
+
+  return inner;
 };
 
 module.exports.setLogLevel = function (logLevel) {

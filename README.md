@@ -259,6 +259,7 @@ $ gulp --gulpfile examples/gulpfile.js multiple
 
 ## Changelog
 
+
 # `v0.5.0`
 
 1. Added API end point `notify.withReporter(Reporter)` as syntactic suger for custom reporter

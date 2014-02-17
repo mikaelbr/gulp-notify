@@ -344,6 +344,12 @@ describe('gulp output stream', function() {
       done();
     });
 
+    it('should have onError event withReporter', function(done) {
+      var notifier = notify.withReporter(mockGenerator);
+      should.exist(notifier.onError);
+      done();
+    });
+
     it('should be limited by notifying on error if th onError-option is passed', function (done) {
       var
         testMessage = "tester",
@@ -365,6 +371,28 @@ describe('gulp output stream', function() {
           cb();
         }))
         .on("error", onError)
+    });
+
+    it('should have onError options on withReporter sugar', function (done) {
+
+      var custom = notify.withReporter(mockGenerator(function (opts) {
+            should.exist(opts);
+            should.exist(opts.title);
+            should.exist(opts.message);
+            String(opts.message).should.equal(testMessage);
+            String(opts.title).should.equal("Error running Gulp");
+            done();
+          }));
+      var
+        testMessage = "tester",
+        srcFile = join(__dirname, "./fixtures/*");
+
+      gulp.src(srcFile)
+        .pipe(through.obj(function (file, enc, cb) {
+          this.emit("error", new gutil.PluginError("testPlugin", testMessage));
+          cb();
+        }))
+        .on("error", custom.onError())
     });
 
     it('should handle streamed files', function (done) {

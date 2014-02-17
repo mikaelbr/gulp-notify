@@ -82,3 +82,22 @@ gulp.task("error", function () {
       })
 });
 
+gulp.task("customError", function () {
+
+  var custom = notify.withReporter(function (options, callback) {
+    console.log("Title:", options.title);
+    console.log("Message:", options.message);
+    callback();
+  });
+
+  gulp.src("../test/fixtures/*")
+      .pipe(through.obj(function (file, enc, callback) {
+        this.emit("error", new Error("Something happend: Error message!"));
+        callback();
+      }))
+      .on("error", custom.onError('Error: <%= error.message %>'))
+      .on("error", function (err) {
+        console.log("Error:", err);
+      })
+});
+
