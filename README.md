@@ -266,12 +266,14 @@ $ gulp --gulpfile examples/gulpfile.js multiple
 
 ## Changelog
 
-# `v0.6.1`
+### `v0.6.2`
+1. Adds another logging level: 0 - none, 1 - error, 2 - all.
+
+### `v0.6.1`
 1. Added `.onError` method on object created by `withReporter`
 2. Added colored logging on success / error
 
-# `v0.5.0`
-
+### `v0.5.0`
 1. Added API end point `notify.withReporter(Reporter)` as syntactic suger for custom reporter
 2. Updated dependency for node-notfier - now checking if `notify-send` is installed on the Linux box
 
