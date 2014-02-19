@@ -6,7 +6,7 @@ var through = require("through2"),
 "use strict";
 
 var logLevel = 2;
-var logger = gutil.log;
+var fnLog = gutil.log;
 
 var plugin = module.exports = function (options) {
 
@@ -61,6 +61,15 @@ var onError = module.exports.onError = function (options) {
   };
 };
 
+var setLogLevel = module.exports.setLogLevel = function (newLogLevel) {
+  logLevel = newLogLevel;
+};
+
+var logger = module.exports.logger = function (newLogger) {
+  if (!newLogger) return fnLog;
+  fnLog = newLogger;
+};
+
 module.exports.withReporter = function (reporter) {
   if (!reporter) throw new gutil.PluginError("gulp-notify", "No custom reporter defined.");
 
@@ -90,17 +99,12 @@ module.exports.withReporter = function (reporter) {
     return onError(options);
   }
 
+  inner.setLogLevel = setLogLevel;
+  inner.logger = logger;
+
   return inner;
 };
 
-module.exports.setLogLevel = function (newLogLevel) {
-  logLevel = newLogLevel;
-};
-
-module.exports.logger = function (newLogger) {
-  if (!newLogger) return logger;
-  logger = newLogger;
-};
 
 function logError (options, isError) {
   if (!logLevel) return;
@@ -108,7 +112,7 @@ function logError (options, isError) {
 
   color = isError ? "red" : "green";
   if (!gutil.colors[color]) return;
-  logger(gutil.colors.cyan('gulp-notify') + ':',
+  fnLog(gutil.colors.cyan('gulp-notify') + ':',
            '[' + gutil.colors.blue(options.title) + ']',
             gutil.colors[color].call(gutil.colors, options.message)
            );

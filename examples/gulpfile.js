@@ -90,6 +90,8 @@ gulp.task("customError", function () {
     callback();
   });
 
+  custom.setLogLevel(1);
+
   gulp.src("../test/fixtures/*")
       .pipe(custom('<%= file.relative %>'))
       .pipe(through.obj(function (file, enc, callback) {
