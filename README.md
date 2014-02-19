@@ -7,6 +7,7 @@
 | ------------- |--------------|
 | Description   | Send messages to Mac Notification Center or Linux notifications (using `notify-send`) using the [node-notifier](https://github.com/mikaelbr/node-notifier) module. Can also [specify custom notifier](#notifywithreporterfunction) (e.g. Growl notification). |
 | Node Version  | >= 0.8      |
+| Package Version  | 1.0.0-beta     |
 
 **Note: Without overriding the notifier, Mac OS X >= 10.8 or as of v0.3.2, Linux with `notify-send` installed is required for this to run.**
 
@@ -213,17 +214,17 @@ gulp.src("../test/fixtures/*")
 
 The `onError()` end point does not support `lodash.template`.
 
-### notify.setLogLevel(level)
+### notify.logLevel(level)
 Type: `Integer`  
 Default: `2`
 
 Set if logger should be used or not. If log level is set to 0,
-no logging will be used.
+no logging will be used. If no new log level is passed, the 
+current log level is returned.
 
 * `0`: No logging
 * `1`: Log on error
 * `2`: Log both on error and regular notification.
-
 
 If logging is set to `> 0`, the title and
 message passed to `gulp-notify` will be logged like so:
@@ -248,11 +249,14 @@ $ gulp --gulpfile examples/gulpfile.js --tasks
 [gulp] Tasks for /Users/example/gulp-notify/examples/gulpfile.js
 [gulp] ├── multiple
 [gulp] ├── one
-[gulp] ├── customReporter
 [gulp] ├── message
+[gulp] ├── customReporter
+[gulp] ├── template
+[gulp] ├── templateadv
 [gulp] ├── function
 [gulp] ├── onlast
-[gulp] └── error
+[gulp] ├── error
+[gulp] └── customError
 ```
 
 To run an example:
@@ -265,6 +269,11 @@ $ gulp --gulpfile examples/gulpfile.js multiple
 ```
 
 ## Changelog
+
+### `v1.0.0-beta`
+1. Major rewrites and restructure in code
+2. Lock down on API, changes `setLogLevel` to `logLevel`
+3. Exposes logLevel and logger on the withReporter object.
 
 ### `v0.6.2`
 1. Adds another logging level: 0 - none, 1 - error, 2 - all.

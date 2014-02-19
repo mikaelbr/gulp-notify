@@ -23,7 +23,7 @@ var originalLogger = notify.logger();
 describe('gulp output stream', function() {
 
   beforeEach(function () {
-    notify.setLogLevel(0);
+    notify.logLevel(0);
     notify.logger(originalLogger);
   });
 
@@ -458,14 +458,14 @@ describe('gulp output stream', function() {
 
     it('should allow setting of logLevel', function(done) {
       var notifier = notify.withReporter(mockGenerator);
-      should.exist(notify.setLogLevel);
+      should.exist(notify.logLevel);
       should.exist(notify.logger);
       done();
     });
 
     it('should log error on log level 1', function(done) {
       var srcFile = join(__dirname, "./fixtures/1.txt");
-      notify.setLogLevel(1);
+      notify.logLevel(1);
       notify.logger(function (options) {
         should.exist(true);
         done();
@@ -484,7 +484,7 @@ describe('gulp output stream', function() {
     it('should not log on log level 0', function(done) {
       var srcFile = join(__dirname, "./fixtures/1.txt");
       var hasBeenCalled = false;
-      notify.setLogLevel(0);
+      notify.logLevel(0);
 
       notify.logger(function () {
         hasBeenCalled = true;
