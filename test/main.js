@@ -76,6 +76,37 @@ describe('gulp output stream', function() {
       instream.pipe(outstream);
     });
 
+    it('should call notifier with extra options untouched', function(done) {
+      var testString = "this is a test";
+      var testIcon = "face-cool";
+
+      var mockedNotify = notify.withReporter(mockGenerator(function (opts) {
+        should.exist(opts);
+        should.exist(opts.icon);
+        should.exist(opts.message);
+        String(opts.icon).should.equal(testIcon);
+        String(opts.message).should.equal(testString);
+      }));
+
+      var instream = gulp.src(join(__dirname, "./fixtures/*.txt")),
+          outstream = mockedNotify({
+            message: testString,
+            icon: testIcon
+          });
+
+      outstream.on('data', function(file) {
+        should.exist(file);
+        should.exist(file.path);
+        should.exist(file.contents);
+      });
+
+      outstream.on('end', function() {
+        done();
+      });
+
+      instream.pipe(outstream);
+    });
+
     it('should emit error when sub-module returns error', function(done) {
       var mockedNotify = notify.withReporter(function (options, callback) {
         callback(new Error(testString));
