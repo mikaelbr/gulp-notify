@@ -5,11 +5,12 @@
 ## Information
 | Package       | gulp-notify  |
 | ------------- |--------------|
-| Description   | Send messages to Mac Notification Center or Linux notifications (using `notify-send`) using the [node-notifier](https://github.com/mikaelbr/node-notifier) module. Can also [specify custom notifier](#notifywithreporterfunction) (e.g. Growl notification). |
+| Description   | Send messages to Mac Notification Center or Linux notifications (using `notify-send`) using the [node-notifier](https://github.com/mikaelbr/node-notifier) module or Growl if not any of them. Can also [specify custom notifier](#notifywithreporterfunction). |
 | Node Version  | >= 0.8      |
-| Package Version  | 1.0.0-beta     |
+| Package Version  | 1.1.0     |
 
 **Note: Without overriding the notifier, Mac OS X >= 10.8 or as of v0.3.2, Linux with `notify-send` installed is required for this to run.**
+**After version `1.1.0` this now supports Growl natively.**
 
 ## Usage
 
@@ -63,16 +64,20 @@ Type: `function(VinylFile)`
 The result of the function is used as message.
 Vinyl File from gulp stream passed in as argument.
 
-The returned string can be a lodash template as 
+The returned string can be a lodash template as
 it is passed through [gulp-util.template](https://github.com/gulpjs/gulp-util#templatestring-data).
 
 ### notify(options)
+
+*Options are passed onto the reporter, so on Windows, you can define
+Growl host and so on. See [node-notifier](https://github.com/mikaelbr/node-notifier)
+for more information*
 
 #### options.onLast
 Type: `Boolean`  
 Default: `false`
 
-If the notification should only happen on the last file 
+If the notification should only happen on the last file
 of the stream. Per default a notification is triggered
 on each file.
 
@@ -127,7 +132,7 @@ gulp.src("../test/fixtures/*")
 Type: `Function(options, callback)`  
 Default: node-notifier module
 
-Swap out the notifier by passing in an function. 
+Swap out the notifier by passing in an function.
 The function expects two arguments: options and callback.
 
 The callback must be called when the notification is finished. Options
@@ -219,7 +224,7 @@ Type: `Integer`
 Default: `2`
 
 Set if logger should be used or not. If log level is set to 0,
-no logging will be used. If no new log level is passed, the 
+no logging will be used. If no new log level is passed, the
 current log level is returned.
 
 * `0`: No logging
