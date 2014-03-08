@@ -275,6 +275,9 @@ $ gulp --gulpfile examples/gulpfile.js multiple
 
 ## Changelog
 
+### `v1.1.0`
+1. Bumps dependency for `node-notifier`. Now supports Growl on Windows!
+
 ### `v1.0.0-beta`
 1. Major rewrites and restructure in code
 2. Lock down on API, changes `setLogLevel` to `logLevel`
