@@ -3,6 +3,7 @@ var gulp = require('gulp');
 var notify = require('../');
 var through = require('through2');
 var plumber = require('gulp-plumber');
+var nn = require('node-notifier');
 
 gulp.task("multiple", function () {
   gulp.src("../test/fixtures/*")
@@ -82,6 +83,22 @@ gulp.task("error", function () {
       })
 });
 
+gulp.task("forceGrowl", function () {
+  var custom = notify.withReporter(function (options, callback) {
+    new nn.Growl().notify(options, callback);
+  });
+
+  gulp.src("../test/fixtures/*")
+      .pipe(through.obj(function (file, enc, callback) {
+        this.emit("error", new Error("Something happend: Error message!"));
+        callback();
+      }))
+      .on("error", custom.onError('Error: <%= error.message %>'))
+      .on("error", function (err) {
+        console.log("Error:", err);
+      })
+});
+
 gulp.task("customError", function () {
 
   var custom = notify.withReporter(function (options, callback) {
@@ -103,4 +120,3 @@ gulp.task("customError", function () {
         console.log("Error:", err);
       })
 });
-
