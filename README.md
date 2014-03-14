@@ -275,6 +275,10 @@ $ gulp --gulpfile examples/gulpfile.js multiple
 
 ## Changelog
 
+### `v1.2.1`
+1. The entire options-object is passed to the notifier, allowing pass additional information to notifiers.
+2. Adds support for showing errors returned from the notifiers and showing these errors in the console.
+
 ### `v1.1.0`
 1. Bumps dependency for `node-notifier`. Now supports Growl on Windows!
 
