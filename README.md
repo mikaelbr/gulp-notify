@@ -7,7 +7,7 @@
 | ------------- |--------------|
 | Description   | Send messages to Mac Notification Center or Linux notifications (using `notify-send`) using the [node-notifier](https://github.com/mikaelbr/node-notifier) module or Growl if not any of them. Can also [specify custom notifier](#notifywithreporterfunction). |
 | Node Version  | >= 0.8      |
-| Package Version  | 1.2.1     |
+| Package Version  | 1.2.4     |
 
 **Note: Without overriding the notifier, Mac OS X >= 10.8 or as of v0.3.2, Linux with `notify-send` installed is required for this to run.**
 **After version `1.1.0` this now supports Growl natively.**
@@ -281,7 +281,7 @@ $ gulp --gulpfile examples/gulpfile.js multiple
 As jshint exposes the result on the vinyl file we can
 use them in a function like so:
 
-```
+```javascript
 gulp.task('lint', function() {
   gulp.src('/src/**/*.js')
     .pipe(jshint())
