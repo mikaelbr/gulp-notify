@@ -67,6 +67,8 @@ Vinyl File from gulp stream passed in as argument.
 The returned string can be a lodash template as
 it is passed through [gulp-util.template](https://github.com/gulpjs/gulp-util#templatestring-data).
 
+If `false` is returned from the function the notification won't run.
+
 ### notify(options)
 
 *Options are passed onto the reporter, so on Windows, you can define
