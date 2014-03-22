@@ -275,6 +275,36 @@ $ gulp --gulpfile examples/gulpfile.js multiple
 [gulp] Finished 'multiple' in 3.75 ms
 ```
 
+### As jshint reporter
+
+`gulp-notify` can easily be used as jshint reporter.
+As jshint exposes the result on the vinyl file we can
+use them in a function like so:
+
+```
+gulp.task('lint', function() {
+  gulp.src('/src/**/*.js')
+    .pipe(jshint())
+    // Use gulp-notify as jshint reporter
+    .pipe(notify(function (file) {
+      if (file.jshint.success) {
+        // Don't show something if success
+        return false;
+      }
+
+      var errors = file.jshint.results.map(function (data) {
+        if (data.error) {
+          return "(" + data.error.line + ':' + data.error.character + ') ' + data.error.reason;
+        }
+      }).join("\n");
+      return file.relative + " (" + file.jshint.results.length + " errors)\n" + errors;
+    }));
+});
+```
+
+If you use a function for message in `gulp-notify`, the message won't be shown.
+This is true for both direct use of function and `{ message: function () {}}`.
+
 ## Changelog
 
 ### `v1.2.1`
