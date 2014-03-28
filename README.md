@@ -50,6 +50,16 @@ will not break if the notifier returns an error.
 If you want to notify on errors [`gulp-plumber`](https://github.com/floatdrop/gulp-plumber)
 can be used to not break the run and force you to have to restart gulp.
 
+You can use [notify.onError()](#notifyonerror) as the errorHandler for gulp-plumber like this:
+
+```javascript
+gulp.src("../test/fixtures/*")
+      .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+      .pipe(through(function () {
+        this.emit("error", new Error("Something happend: Error message!"))
+      }));
+```
+
 ## API
 
 ### notify(String)
@@ -59,7 +69,7 @@ The string can be a lodash template as
 it is passed through [gulp-util.template](https://github.com/gulpjs/gulp-util#templatestring-data).
 
 ### notify(Function)
-Type: `function(VinylFile)`  
+Type: `function(VinylFile)`
 
 The result of the function is used as message.
 Vinyl File from gulp stream passed in as argument.
@@ -76,7 +86,7 @@ Growl host and so on. See [node-notifier](https://github.com/mikaelbr/node-notif
 for more information*
 
 #### options.onLast
-Type: `Boolean`  
+Type: `Boolean`
 Default: `false`
 
 If the notification should only happen on the last file
@@ -85,7 +95,7 @@ on each file.
 
 
 #### options.message
-Type: `String`  
+Type: `String`
 Default: File path in stream
 
 The message you wish to attach to file. The string can be a
@@ -94,12 +104,12 @@ lodash template as it is passed through [gulp-util.template](https://github.com/
 Example: `Created <%= file.relative %>`.
 
 ##### as function
-Type: `Function(vinylFile)`  
+Type: `Function(vinylFile)`
 
 See `notify(Function)`.
 
 #### options.title
-Type: `String`  
+Type: `String`
 Default: "Gulp Notification"
 
 The title of the notification. The string can be a
@@ -108,12 +118,12 @@ lodash template as it is passed through [gulp-util.template](https://github.com/
 Example: `Created <%= file.relative %>`.
 
 ##### as function
-Type: `Function(vinylFile)`  
+Type: `Function(vinylFile)`
 
 See `notify(Function)`.
 
 #### options.templateOptions
-Type: `Object`  
+Type: `Object`
 Default: {}
 
 Object passed to the `lodash` template, for additional properties passed to the template.
@@ -131,7 +141,7 @@ gulp.src("../test/fixtures/*")
 ```
 
 #### options.notifier
-Type: `Function(options, callback)`  
+Type: `Function(options, callback)`
 Default: node-notifier module
 
 Swap out the notifier by passing in an function.
@@ -219,10 +229,10 @@ gulp.src("../test/fixtures/*")
       }));
 ```
 
-The `onError()` end point does not support `lodash.template`.
+The `onError()` end point does support `lodash.template`.
 
 ### notify.logLevel(level)
-Type: `Integer`  
+Type: `Integer`
 Default: `2`
 
 Set if logger should be used or not. If log level is set to 0,
