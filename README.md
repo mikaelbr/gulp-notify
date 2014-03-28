@@ -50,6 +50,16 @@ will not break if the notifier returns an error.
 If you want to notify on errors [`gulp-plumber`](https://github.com/floatdrop/gulp-plumber)
 can be used to not break the run and force you to have to restart gulp.
 
+You can use [notify.onError()](#notifyonerror) as the errorHandler for gulp-plumber like this:
+
+```javascript
+gulp.src("../test/fixtures/*")
+      .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+      .pipe(through(function () {
+        this.emit("error", new Error("Something happend: Error message!"))
+      }));
+```
+
 ## API
 
 ### notify(String)
