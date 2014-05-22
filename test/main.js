@@ -107,7 +107,7 @@ describe('gulp output stream', function() {
       instream.pipe(outstream);
     });
 
-    it('should emit error when sub-module returns error', function(done) {
+    it('should emit error when sub-module returns error and emitError is true', function(done) {
       var mockedNotify = notify.withReporter(function (options, callback) {
         callback(new Error(testString));
       });
@@ -116,7 +116,8 @@ describe('gulp output stream', function() {
       var testString = "testString",
           instream = gulp.src(join(__dirname, "./fixtures/*.txt")),
           outstream = mockedNotify({
-            message: testString
+            message: testString,
+            emitError: true
           });
 
       outstream.on('error', function (error) {
@@ -199,14 +200,15 @@ describe('gulp output stream', function() {
         }));
     });
 
-    it('should emit error when sub-module throws exception/error', function(done) {
+    it('should emit error when sub-module throws exception/error and emitError flag is true', function(done) {
       var testString = "some exception",
           instream = gulp.src(join(__dirname, "./fixtures/*.txt")),
           outstream = notify({
             message: testString,
             notifier: function (options, callback) {
               throw new Error(testString);
-            }
+            },
+            emitError: true
           });
 
       outstream.on('error', function (error) {
@@ -217,6 +219,44 @@ describe('gulp output stream', function() {
       });
 
       instream.pipe(outstream);
+    });
+
+    it('should not emit error when sub-module throws exception/error if emitError flag is false (default)', function(done) {
+
+      notify.logLevel(1);
+      notify.logger(function () {
+        should.exist(true);
+        done();
+      });
+
+      var testString = "some exception",
+          expectedFile = new gutil.File({
+            path: "test/fixtures/1.txt",
+            cwd: "test/",
+            base: "test/fixtures/",
+            contents: fs.createReadStream("test/fixtures/1.txt")
+          }),
+          outstream = notify({
+            message: testString,
+            notifier: function (options, callback) {
+              throw new Error(testString);
+            }
+          });
+
+      outstream.on('error', function (error) {
+        should.not.exist(error);
+        should.not.exist(error.message);
+        String(error.message).should.not.equal(testString);
+        done();
+      });
+
+      outstream.on('end', function () {
+        done();
+      });
+
+      outstream.write(expectedFile);
+      outstream.write(null);
+      outstream.end();
     });
 
     it('should default to notifying file path and default title', function(done) {

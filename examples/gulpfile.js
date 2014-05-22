@@ -93,10 +93,7 @@ gulp.task("forceGrowl", function () {
         this.emit("error", new Error("Something happend: Error message!"));
         callback();
       }))
-      .on("error", custom.onError('Error: <%= error.message %>'))
-      .on("error", function (err) {
-        console.log("Error:", err);
-      })
+      .on("error", custom.onError('Error: <%= error.message %>'));
 });
 
 gulp.task("customError", function () {
@@ -115,7 +112,10 @@ gulp.task("customError", function () {
         this.emit("error", new Error("Something happend: Error message!"));
         callback();
       }))
-      .on("error", custom.onError('Error: <%= error.message %>'))
+      .on("error", custom.onError({
+        message: 'Error: <%= error.message %>',
+        emitError: true
+      }))
       .on("error", function (err) {
         console.log("Error:", err);
       })
