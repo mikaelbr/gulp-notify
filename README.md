@@ -93,6 +93,19 @@ If the notification should only happen on the last file
 of the stream. Per default a notification is triggered
 on each file.
 
+#### options.emitError
+Type: `Boolean`
+Default: `false`
+
+If the returned stream should emit an error or not.
+If `emitError` is true, you have to handle `.on('error')`
+manually in case the notifier (gulp-notify) fails. If
+the default `false` is set, the error will not be emitted
+but simply printed to the console. 
+
+This means you can run the notifier on a CI system without
+opting it out but simply letting it fail gracefully.
+
 
 #### options.message
 Type: `String`
