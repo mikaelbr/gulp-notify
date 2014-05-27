@@ -85,6 +85,8 @@ If `false` is returned from the function the notification won't run.
 Growl host and so on. See [node-notifier](https://github.com/mikaelbr/node-notifier)
 for more information*
 
+See also the [advanceMac example](examples/gulpfile.js).
+
 #### options.onLast
 Type: `Boolean`
 Default: `false`
@@ -285,7 +287,9 @@ $ gulp --gulpfile examples/gulpfile.js --tasks
 [gulp] ├── templateadv
 [gulp] ├── function
 [gulp] ├── onlast
+[gulp] ├── advanceMac
 [gulp] ├── error
+[gulp] ├── forceGrowl
 [gulp] └── customError
 ```
 
@@ -329,6 +333,12 @@ If you use a function for message in `gulp-notify`, the message won't be shown.
 This is true for both direct use of function and `{ message: function () {}}`.
 
 ## Changelog
+
+### `v1.3.1`
+1. Updates node-notifier dependency. Adds support for app icon and images for Mac.
+
+### `v1.3.0`
+1. Adds default setting for failing silently. Introduces concept emitError flag to still emit errors
 
 ### `v1.2.1`
 1. The entire options-object is passed to the notifier, allowing pass additional information to notifiers.

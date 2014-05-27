@@ -61,6 +61,19 @@ gulp.task("function", function () {
       }));
 });
 
+gulp.task("advanceMac", function () {
+  gulp.src("../test/fixtures/*")
+      .pipe(notify({
+        "title": "Open Github",
+        "subtitle": "Project web site",
+        "message": "Click to open project site",
+        "sound": "Frog", // case sensitive
+        // "contentImage": "file:///Some/Image/Here.png", // case sensitive
+        "open": "https://github.com/mikaelbr/gulp-notify"
+      }));
+});
+
+
 gulp.task("onlast", function () {
   gulp.src("../test/fixtures/*")
       .pipe(notify({
