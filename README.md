@@ -364,15 +364,18 @@ This is true for both direct use of function and `{ message: function () {}}`.
 2. Updated dependency for node-notfier - now checking if `notify-send` is installed on the Linux box
 
 
+[![NPM downloads][npm-downloads]][npm-url]
+
 ## License
 
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
 
 [npm-url]: https://npmjs.org/package/gulp-notify
-[npm-image]: https://badge.fury.io/js/gulp-notify.png
+[npm-image]: http://img.shields.io/npm/v/gulp-notify.svg?style=flat
+[npm-downloads]: http://img.shields.io/npm/dm/gulp-notify.svg?style=flat
 
 [travis-url]: http://travis-ci.org/mikaelbr/gulp-notify
-[travis-image]: https://secure.travis-ci.org/mikaelbr/gulp-notify.png?branch=master
+[travis-image]: http://img.shields.io/travis/mikaelbr/gulp-notify.svg?style=flat
 
-[depstat-url]: https://david-dm.org/mikaelbr/gulp-notify
-[depstat-image]: https://david-dm.org/mikaelbr/gulp-notify.png
+[depstat-url]: https://gemnasium.com/mikaelbr/gulp-notify
+[depstat-image]: http://img.shields.io/gemnasium/mikaelbr/gulp-notify.svg?style=flat
