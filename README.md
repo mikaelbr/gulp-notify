@@ -5,12 +5,14 @@
 ## Information
 | Package       | gulp-notify  |
 | ------------- |--------------|
-| Description   | Send messages to Mac Notification Center or Linux notifications (using `notify-send`) using the [node-notifier](https://github.com/mikaelbr/node-notifier) module or Growl if not any of them. Can also [specify custom notifier](#notifywithreporterfunction). |
-| Node Version  | >= 0.8      |
-| Package Version  | 1.3.0     |
+| Description   | Send messages to Mac Notification Center or Linux notifications (using `notify-send`) using the [node-notifier](https://github.com/mikaelbr/node-notifier) module or [Growl for Windows](http://www.growlforwindows.com/gfw/default.aspx) if not any of them. Can also [specify custom notifier](#notifywithreporterfunction). |
+| Node Version  | >= 0.8       |
+| Package Version  | 1.3.1     |
 
-**Note: Without overriding the notifier, Mac OS X >= 10.8 or as of v0.3.2, Linux with `notify-send` installed is required for this to run.**
-**After version `1.1.0` this now supports Growl natively.**
+## Requirements
+* **Mac OS X**: No external installation needed.
+* **Linux**: `Notify-send` should be installed (On Ubuntu this is installed per default) 
+* **Windows**: [Growl for Windows](http://www.growlforwindows.com/gfw/default.aspx) should be installed.
 
 ## Usage
 
