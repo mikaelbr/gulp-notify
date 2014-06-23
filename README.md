@@ -5,12 +5,12 @@
 ## Information
 | Package       | gulp-notify  |
 | ------------- |--------------|
-| Description   | Send messages to Mac Notification Center or Linux notifications (using `notify-send`) using the [node-notifier](https://github.com/mikaelbr/node-notifier) module or [Growl for Windows](http://www.growlforwindows.com/gfw/default.aspx) if not any of them. Can also [specify custom notifier](#notifywithreporterfunction). |
+| Description   | Send messages to Mac Notification Center, Linux notifications (using `notify-send`) or Windows w/Growl using the [node-notifier](https://github.com/mikaelbr/node-notifier) module. Can also [specify custom notifier](#notifywithreporterfunction). |
 | Node Version  | >= 0.8       |
-| Package Version  | 1.3.1     |
+| Package Version  | 1.4.0     |
 
 ## Requirements
-* **Mac OS X**: No external installation needed.
+* **Mac OS X**: No external installation needed (if Mac OS X 10.8 or higher).
 * **Linux**: `Notify-send` should be installed (On Ubuntu this is installed per default) 
 * **Windows**: [Growl for Windows](http://www.growlforwindows.com/gfw/default.aspx) should be installed.
 
@@ -84,10 +84,17 @@ If `false` is returned from the function the notification won't run.
 ### notify(options)
 
 *Options are passed onto the reporter, so on Windows, you can define
-Growl host and so on. See [node-notifier](https://github.com/mikaelbr/node-notifier)
-for more information*
+Growl host, on Mac you can pass in contentImage, and so on. 
 
-See also the [advanceMac example](examples/gulpfile.js).
+See [node-notifier](https://github.com/mikaelbr/node-notifier)
+for all options*
+
+Default notification values:
+ - Gulp logo on regular notification
+ - Inverted Gulp logo on error
+ - Frog sound on error on Mac.
+
+See also the [advanced example](examples/gulpfile.js).
 
 #### options.onLast
 Type: `Boolean`
@@ -335,6 +342,9 @@ If you use a function for message in `gulp-notify`, the message won't be shown.
 This is true for both direct use of function and `{ message: function () {}}`.
 
 ## Changelog
+
+### `v1.4.0`
+1. Adds default icons for regular notification and error. Also adds Frog sound on error on Mac.
 
 ### `v1.3.1`
 1. Updates node-notifier dependency. Adds support for app icon and images for Mac.
