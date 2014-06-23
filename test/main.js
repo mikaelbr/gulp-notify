@@ -692,10 +692,7 @@ describe('gulp output stream', function() {
 
     it('should be able to override default icon onError', function (done) {
       var expectedIcon = "testIcon";
-
-      var
-        testMessage = "tester",
-        srcFile = join(__dirname, "./fixtures/*");
+      var testMessage = "tester";
 
       var custom = notify.withReporter(mockGenerator(function (opts) {
             should.exist(opts);
@@ -705,6 +702,22 @@ describe('gulp output stream', function() {
             String(opts.message).should.equal(testMessage);
             String(opts.icon).should.equal(expectedIcon);
             String(opts.title).should.equal("Error running Gulp");
+            done();
+          }));
+
+      custom.onError({
+          icon: expectedIcon,
+      })(new gutil.PluginError("testPlugin", testMessage));
+    });
+
+    it('should have Frog sound per default onError', function (done) {
+      var expectedIcon = "testIcon";
+      var testMessage = "tester";
+
+      var custom = notify.withReporter(mockGenerator(function (opts) {
+            should.exist(opts);
+            should.exist(opts.sound);
+            String(opts.sound).should.equal('Frog');
             done();
           }));
 
