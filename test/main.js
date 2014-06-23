@@ -48,32 +48,59 @@ describe('gulp output stream', function() {
       done();
     });
 
-    it('should call notifier with title and message', function(done) {
+    it('should set message, title and have default icon of Gulp logo', function(done) {
       var testString = "this is a test";
+      var expectedIcon = join(__dirname, '..', 'assets', 'gulp.png');
+
+      var expectedFile = new gutil.File({
+        path: "test/fixtures/1.txt",
+        cwd: "test/",
+        base: "test/fixtures/",
+        contents: fs.createReadStream("test/fixtures/1.txt")
+      });
 
       var mockedNotify = notify.withReporter(mockGenerator(function (opts) {
-        should.exist(opts);
-        should.exist(opts.title);
-        should.exist(opts.message);
+        opts.should.have.property('title');
+        opts.should.have.property('message');
+        opts.should.have.property('icon');
+        String(opts.icon).should.equal(expectedIcon);
         String(opts.message).should.equal(testString);
-      }));
+        done();
+      }.bind(this)));
 
-      var instream = gulp.src(join(__dirname, "./fixtures/*.txt")),
-          outstream = mockedNotify({
+      var outstream = mockedNotify({
             message: testString
           });
 
-      outstream.on('data', function(file) {
-        should.exist(file);
-        should.exist(file.path);
-        should.exist(file.contents);
+      outstream.write(expectedFile);
+    });
+
+    it('should be able to override default icon', function(done) {
+      var testString = "this is a test";
+      var expectedIcon = "testIcon";
+
+      var expectedFile = new gutil.File({
+        path: "test/fixtures/1.txt",
+        cwd: "test/",
+        base: "test/fixtures/",
+        contents: fs.createReadStream("test/fixtures/1.txt")
       });
 
-      outstream.on('end', function() {
+      var mockedNotify = notify.withReporter(mockGenerator(function (opts) {
+        opts.should.have.property('title');
+        opts.should.have.property('message');
+        opts.should.have.property('icon');
+        String(opts.icon).should.equal(expectedIcon);
+        String(opts.message).should.equal(testString);
         done();
-      });
+      }.bind(this)));
 
-      instream.pipe(outstream);
+      var outstream = mockedNotify({
+            message: testString,
+            icon: expectedIcon
+          });
+
+      outstream.write(expectedFile);
     });
 
     it('should call notifier with extra options untouched', function(done) {
@@ -616,6 +643,9 @@ describe('gulp output stream', function() {
 
 
     it('should have onError options on withReporter sugar', function (done) {
+      var
+        testMessage = "tester",
+        srcFile = join(__dirname, "./fixtures/*");
 
       var custom = notify.withReporter(mockGenerator(function (opts) {
             should.exist(opts);
@@ -625,9 +655,6 @@ describe('gulp output stream', function() {
             String(opts.title).should.equal("Error running Gulp");
             done();
           }));
-      var
-        testMessage = "tester",
-        srcFile = join(__dirname, "./fixtures/*");
 
       gulp.src(srcFile)
         .pipe(through.obj(function (file, enc, cb) {
@@ -635,6 +662,55 @@ describe('gulp output stream', function() {
           cb();
         }))
         .on("error", custom.onError())
+    });
+
+    it('should have default Gulp-error logo onError', function (done) {
+      var expectedIcon = join(__dirname, '..', 'assets', 'gulp-error.png');
+
+      var
+        testMessage = "tester",
+        srcFile = join(__dirname, "./fixtures/*");
+
+      var custom = notify.withReporter(mockGenerator(function (opts) {
+            should.exist(opts);
+            should.exist(opts.title);
+            should.exist(opts.message);
+            should.exist(opts.icon);
+            String(opts.message).should.equal(testMessage);
+            String(opts.icon).should.equal(expectedIcon);
+            String(opts.title).should.equal("Error running Gulp");
+            done();
+          }));
+
+      gulp.src(srcFile)
+        .pipe(through.obj(function (file, enc, cb) {
+          this.emit("error", new gutil.PluginError("testPlugin", testMessage));
+          cb();
+        }))
+        .on("error", custom.onError())
+    });
+
+    it('should be able to override default icon onError', function (done) {
+      var expectedIcon = "testIcon";
+
+      var
+        testMessage = "tester",
+        srcFile = join(__dirname, "./fixtures/*");
+
+      var custom = notify.withReporter(mockGenerator(function (opts) {
+            should.exist(opts);
+            should.exist(opts.title);
+            should.exist(opts.message);
+            should.exist(opts.icon);
+            String(opts.message).should.equal(testMessage);
+            String(opts.icon).should.equal(expectedIcon);
+            String(opts.title).should.equal("Error running Gulp");
+            done();
+          }));
+
+      custom.onError({
+          icon: expectedIcon,
+      })(new gutil.PluginError("testPlugin", testMessage));
     });
 
     it('should support lodash template for titles and messages on onError', function (done) {

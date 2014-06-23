@@ -2,6 +2,7 @@
 var gulp = require('gulp');
 var notify = require('../');
 var through = require('through2');
+var path = require('path');
 var plumber = require('gulp-plumber');
 var nn = require('node-notifier');
 
@@ -61,15 +62,16 @@ gulp.task("function", function () {
       }));
 });
 
-gulp.task("advanceMac", function () {
+gulp.task("advanced", function () {
   gulp.src("../test/fixtures/*")
       .pipe(notify({
         "title": "Open Github",
         "subtitle": "Project web site",
         "message": "Click to open project site",
         "sound": "Frog", // case sensitive
-        // "contentImage": "file:///Some/Image/Here.png", // case sensitive
-        "open": "https://github.com/mikaelbr/gulp-notify"
+        "icon": path.join(__dirname, "gulp.png"), // case sensitive
+        "open": "https://github.com/mikaelbr/gulp-notify",
+        "onLast": true
       }));
 });
 
