@@ -25,11 +25,11 @@
     "test": "mocha -R spec"
   },
   "dependencies": {
-    "through2": "^1.0.0",
     "gulp-util": "~2.2.12",
     "lodash.template": "~2.4.1",
-    "node-notifier": "^3.0.6",
-    "node.extend": "^1.0.9"
+    "node-notifier": "^3.1.1",
+    "node.extend": "^1.0.9",
+    "through2": "^1.0.0"
   },
   "devDependencies": {
     "mocha": "^1.19.0",
