@@ -279,6 +279,18 @@ message passed to `gulp-notify` will be logged like so:
 [gulp] gulp-notify: [Gulp notification] /Users/example/gulp-notify/test/fixtures/1.txt
 ```
 
+## Disable `gulp-notify`
+
+If you are running on a system that handles notifications poorly or you simply
+do not wish to use `gulp-notify` but your project does? You can disable `gulp-notify`
+by using enviroment variable `DISABLE_NOTIFIER`.
+
+```
+export DISABLE_NOTIFIER=true;
+```
+
+This will disable all methods; `notify()`, `notify.onError` and `notify.withReporter`.
+
 ## Examples
 
 To see all examples run from root:
