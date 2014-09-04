@@ -7,8 +7,6 @@
 | ------------- |--------------|
 | Description   | Send messages to Mac Notification Center, Linux notifications (using `notify-send`) or Windows w/Growl using the [node-notifier](https://github.com/mikaelbr/node-notifier) module. Can also [specify custom notifier](#notifywithreporterfunction). |
 | Node Version  | >= 0.8       |
-| Package Version  | 1.4.0     |
-
 
 ## Table of Contents
 
