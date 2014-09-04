@@ -9,6 +9,8 @@
 | Node Version  | >= 0.8       |
 | Package Version  | 1.4.0     |
 
+
+
 <!-- toc -->
 
 * [Information](#information)
@@ -32,18 +34,10 @@
 * [Examples](#examples)
   * [As jshint reporter](#as-jshint-reporter)
 * [Changelog](#changelog)
-  * [`v1.4.0`](#v140)
-  * [`v1.3.1`](#v131)
-  * [`v1.3.0`](#v130)
-  * [`v1.2.1`](#v121)
-  * [`v1.1.0`](#v110)
-  * [`v1.0.0-beta`](#v100-beta)
-  * [`v0.6.2`](#v062)
-  * [`v0.6.1`](#v061)
-  * [`v0.5.0`](#v050)
 * [License](#license)
 
 <!-- toc stop -->
+
 
 
 ## Requirements
