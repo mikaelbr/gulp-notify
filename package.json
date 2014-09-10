@@ -1,13 +1,18 @@
 {
   "name": "gulp-notify",
   "version": "1.6.0",
-  "description": "gulp plugin to send messages based on Vinyl Files or Errors to Mac OS X, Linux or Windows node-notifier module. Fallbacks to Growl or simply logging",
+  "description": "gulp plugin to send messages based on Vinyl Files or Errors to Mac OS X, Linux or Windows using the node-notifier module. Fallbacks to Growl or simply logging",
   "keywords": [
     "gulpplugin",
     "notify",
     "gulp",
     "notification",
-    "reporter"
+    "reporter",
+    "windows notification",
+    "mac notification",
+    "notify-send",
+    "notify-osd",
+    "growl"
   ],
   "homepage": "https://github.com/mikaelbr/gulp-notify",
   "bugs": "https://github.com/mikaelbr/gulp-notify/issues",
