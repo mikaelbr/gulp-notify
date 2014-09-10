@@ -1,6 +1,9 @@
 Changelog
 ===
 
+#### `v1.5.2`
+1. Now supports native windows notifications!
+
 #### `v1.5.1`
 1. Changes success icon [ref #48](https://github.com/mikaelbr/gulp-notify/issues/48).
 2. Changes to show better info notice if no notifier is found [ref #48](https://github.com/mikaelbr/gulp-notify/issues/49).
