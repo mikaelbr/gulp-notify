@@ -5,7 +5,7 @@
 ## Information
 | Package       | gulp-notify  |
 | ------------- |--------------|
-| Description   | Send messages to Mac Notification Center, Linux notifications (using `notify-send`) or Windows >= 8 (using native Toster) or Growl as fallback, using the [node-notifier](https://github.com/mikaelbr/node-notifier) module. Can also [specify custom notifier](#notifywithreporterfunction). |
+| Description   | Send messages to Mac Notification Center, Linux notifications (using `notify-send`) or Windows >= 8 (using native toaster) or Growl as fallback, using the [node-notifier](https://github.com/mikaelbr/node-notifier) module. Can also [specify custom notifier](#notifywithreporterfunction). |
 | Node Version  | >= 0.8       |
 
 ## Table of Contents
