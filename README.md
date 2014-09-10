@@ -32,7 +32,6 @@
 * [Disable `gulp-notify`](#disable-gulp-notify)
 * [Examples](#examples)
   * [As jshint reporter](#as-jshint-reporter)
-* [Changelog](#changelog)
 * [License](#license)
 
 <!-- toc stop -->
@@ -385,49 +384,6 @@ gulp.task('lint', function() {
 
 If you use a function for message in `gulp-notify`, the message won't be shown.
 This is true for both direct use of function and `{ message: function () {}}`.
-
-## Changelog
-
-**`v1.5.1`**
-1. Changes success icon [ref #48](https://github.com/mikaelbr/gulp-notify/issues/48).
-2. Changes to show better info notice if no notifier is found [ref #48](https://github.com/mikaelbr/gulp-notify/issues/49).
-3. Adds ToC to the README.md.
-
-**`v1.5.0`**
-1. Adds a global way to disable notifier by doing `export DISABLE_NOTIFIER=true`.
-
-**`v1.4.0`**
-1. Adds default icons for regular notification and error. Also adds Frog sound on error on Mac.
-
-**`v1.3.1`**
-1. Updates node-notifier dependency. Adds support for app icon and images for Mac.
-
-**`v1.3.0`**
-1. Adds default setting for failing silently. Introduces concept emitError flag to still emit errors
-
-**`v1.2.1`**
-1. The entire options-object is passed to the notifier, allowing pass additional information to notifiers.
-2. Adds support for showing errors returned from the notifiers and showing these errors in the console.
-
-**`v1.1.0`**
-1. Bumps dependency for `node-notifier`. Now supports Growl on Windows!
-
-**`v1.0.0-beta**`
-1. Major rewrites and restructure in code
-2. Lock down on API, changes `setLogLevel` to `logLevel`
-3. Exposes logLevel and logger on the withReporter object.
-
-**`v0.6.2`**
-1. Adds another logging level: 0 - none, 1 - error, 2 - all.
-
-**`v0.6.1`**
-1. Added `.onError` method on object created by `withReporter`
-2. Added colored logging on success / error
-
-**`v0.5.0`**
-1. Added API end point `notify.withReporter(Reporter)` as syntactic suger for custom reporter
-2. Updated dependency for node-notfier - now checking if `notify-send` is installed on the Linux box
-
 
 [![NPM downloads][npm-downloads]][npm-url]
 
