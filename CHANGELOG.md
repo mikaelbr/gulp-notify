@@ -1,7 +1,7 @@
 Changelog
 ===
 
-#### `v1.5.2`
+#### `v1.6.0`
 1. Now supports native windows notifications!
 
 #### `v1.5.1`
