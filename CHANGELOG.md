@@ -1,6 +1,9 @@
 Changelog
 ===
 
+#### `v1.7.0`
+1. Now supports native windows 7 and earlier notifications, through balloons! This means that gulp-notify can be used on any platform without any extra installs.
+
 #### `v1.6.0`
 1. Now supports native windows notifications!
 
