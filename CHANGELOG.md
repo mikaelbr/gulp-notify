@@ -1,6 +1,14 @@
 Changelog
 ===
 
+#### `v1.8.0`
+1. Changes notification to continue stream at once (unless when using the stream - i.e. when emitting errors)
+2. Fixes example gulpfile by returning stream for each task.
+
+
+#### `v1.7.1`
+1. Fixes issue with Windows 7 and Growl/Bubble conditional.
+
 #### `v1.7.0`
 1. Now supports native windows 7 and earlier notifications, through balloons! This means that gulp-notify can be used on any platform without any extra installs.
 
