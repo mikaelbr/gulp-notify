@@ -12,12 +12,12 @@ gulp.task("multiple", function () {
 });
 
 gulp.task("one", function () {
-  gulp.src("../test/fixtures/1.txt")
+  return gulp.src("../test/fixtures/1.txt")
       .pipe(notify());
 });
 
 gulp.task("message", function () {
-  gulp.src("../test/fixtures/1.txt")
+  return gulp.src("../test/fixtures/1.txt")
       .pipe(notify("This is a message."));
 });
 
@@ -29,18 +29,18 @@ gulp.task("customReporter", function () {
     callback();
   });
 
-  gulp.src("../test/fixtures/1.txt")
+  return gulp.src("../test/fixtures/1.txt")
       .pipe(custom("This is a message."));
 });
 
 gulp.task("template", function () {
-  gulp.src("../test/fixtures/1.txt")
+  return gulp.src("../test/fixtures/1.txt")
       .pipe(notify("Template: <%= file.relative %>"));
 });
 
 
 gulp.task("templateadv", function () {
-  gulp.src("../test/fixtures/1.txt")
+  return gulp.src("../test/fixtures/1.txt")
       .pipe(notify({
         message: "Template: <%= file.relative %>",
         title: function (file) {
@@ -56,14 +56,14 @@ gulp.task("templateadv", function () {
 });
 
 gulp.task("function", function () {
-  gulp.src("../test/fixtures/1.txt")
+  return gulp.src("../test/fixtures/1.txt")
       .pipe(notify(function(file) {
           return "Some file: " + file.relative;
       }));
 });
 
 gulp.task("advanced", function () {
-  gulp.src("../test/fixtures/*")
+  return gulp.src("../test/fixtures/*")
       .pipe(notify({
         "title": "Open Github",
         "subtitle": "Project web site",
@@ -77,7 +77,7 @@ gulp.task("advanced", function () {
 
 
 gulp.task("onlast", function () {
-  gulp.src("../test/fixtures/*")
+  return gulp.src("../test/fixtures/*")
       .pipe(notify({
         onLast: true,
         message: function(file) {
@@ -87,7 +87,7 @@ gulp.task("onlast", function () {
 });
 
 gulp.task("error", function () {
-  gulp.src("../test/fixtures/*")
+  return gulp.src("../test/fixtures/*")
       .pipe(through.obj(function (file, enc, callback) {
         this.emit("error", new Error("Something happend: Error message!"));
         callback();
@@ -103,7 +103,7 @@ gulp.task("forceGrowl", function () {
     new nn.Growl().notify(options, callback);
   });
 
-  gulp.src("../test/fixtures/*")
+  return gulp.src("../test/fixtures/*")
       .pipe(through.obj(function (file, enc, callback) {
         this.emit("error", new Error("Something happend: Error message!"));
         callback();
@@ -121,7 +121,7 @@ gulp.task("customError", function () {
 
   custom.logLevel(1);
 
-  gulp.src("../test/fixtures/*")
+  return gulp.src("../test/fixtures/*")
       .pipe(custom('<%= file.relative %>'))
       .pipe(through.obj(function (file, enc, callback) {
         this.emit("error", new Error("Something happend: Error message!"));
