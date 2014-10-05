@@ -70,8 +70,8 @@ gulp.task("advanced", function () {
         "message": "Click to open project site",
         "sound": "Frog", // case sensitive
         "icon": path.join(__dirname, "gulp.png"), // case sensitive
-        "open": "https://github.com/mikaelbr/gulp-notify",
-        "onLast": true
+        "onLast": true,
+        "wait": true
       }));
 });
 
@@ -92,7 +92,10 @@ gulp.task("error", function () {
         this.emit("error", new Error("Something happend: Error message!"));
         callback();
       }))
-      .on("error", notify.onError('Error: <%= error.message %>'))
+      .on("error", notify.onError({
+        message: 'Error: <%= error.message %>',
+        sound: false // deactivate sound?
+      }))
       .on("error", function (err) {
         console.log("Error:", err);
       })
