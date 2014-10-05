@@ -1,6 +1,12 @@
 Changelog
 ===
 
+#### `v2.0.0`
+1. Major bump due to node-notifier (underlying module for doing notifications) have changed it's API and thus this has as well.
+See [changelog on node-notifier](https://github.com/mikaelbr/node-notifier/blob/master/CHANGELOG.md#v400).
+
+
+
 #### `v1.8.0`
 1. Changes notification to continue stream at once (unless when using the stream - i.e. when emitting errors)
 2. Fixes example gulpfile by returning stream for each task.
