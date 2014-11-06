@@ -610,12 +610,27 @@ describe('gulp output stream', function() {
       done();
     });
 
+
     it('should have onError event withReporter', function(done) {
       var notifier = notify.withReporter(mockGenerator);
       should.exist(notifier.onError);
       done();
     });
 
+    it('should call end on stream', function (done) {
+      var onError = notify.onError({
+        notifier: mockGenerator(function (opts) { })
+      });
+
+      var stream = through.obj(function (file, enc, cb) {
+        this.emit('error', 'error');
+        cb();
+      });
+
+      stream.on('error', onError).on('end', done);
+
+      stream.write({});
+    });
 
     it('should be limited by notifying on error if th onError-option is passed', function (done) {
       var
