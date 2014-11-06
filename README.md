@@ -287,6 +287,8 @@ gulp.src("../test/fixtures/*")
 
 The `onError()` end point does support `lodash.template`.
 
+**`onError()` will automatically end the stream for you. Making it easer for watching.**
+
 ### notify.logLevel(level)
 Type: `Integer`
 Default: `2`
