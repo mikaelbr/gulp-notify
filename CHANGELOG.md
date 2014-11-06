@@ -1,6 +1,9 @@
 Changelog
 ===
 
+#### `v2.0.1`
+1. Now `onError()` calls `.emit('end')` for you on the stream. Making watching and usage easier.
+
 #### `v2.0.0`
 1. Major bump due to node-notifier (underlying module for doing notifications) have changed it's API and thus this has as well.
 See [changelog on node-notifier](https://github.com/mikaelbr/node-notifier/blob/master/CHANGELOG.md#v400).
