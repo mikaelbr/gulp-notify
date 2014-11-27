@@ -5,7 +5,7 @@ var through = require('through2');
 
 var disable = !!process.env.DISABLE_NOTIFIER;
 
-var fn = function (i) { return function () { return i; }; };
+var fn = function (i) { return function () { return i; }; };
 var noopError = fn(function (err) {});
 var noopStream = function () { return through.obj(); };
 
