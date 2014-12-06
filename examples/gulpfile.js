@@ -16,6 +16,16 @@ gulp.task("one", function () {
       .pipe(notify());
 });
 
+notify.on('click', function (options) {
+  console.log('I clicked something!', options);
+});
+
+gulp.task("click", function () {
+  // Click event only makes sense if wait is true...
+  return gulp.src("../test/fixtures/1.txt")
+      .pipe(notify({ message: 'Hello 1', wait: true }));
+});
+
 gulp.task("message", function () {
   return gulp.src("../test/fixtures/1.txt")
       .pipe(notify("This is a message."));
