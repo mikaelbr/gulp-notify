@@ -37,10 +37,10 @@
     "through2": "^1.0.0"
   },
   "devDependencies": {
-    "mocha": "^1.19.0",
-    "should": "^3.3.2",
     "gulp": "^3.6.2",
-    "gulp-plumber": "^0.6.2"
+    "gulp-plumber": "^0.6.2",
+    "mocha": "^2.0.1",
+    "should": "^4.3.0"
   },
   "engines": {
     "node": ">=0.8.0",
