@@ -1,14 +1,15 @@
 Changelog
 ===
 
+#### `v2.1.0`
+1. Adds `click` and `timeout` events to `notify` object.
+
 #### `v2.0.1`
 1. Now `onError()` calls `.emit('end')` for you on the stream. Making watching and usage easier.
 
 #### `v2.0.0`
 1. Major bump due to node-notifier (underlying module for doing notifications) have changed it's API and thus this has as well.
 See [changelog on node-notifier](https://github.com/mikaelbr/node-notifier/blob/master/CHANGELOG.md#v400).
-
-
 
 #### `v1.8.0`
 1. Changes notification to continue stream at once (unless when using the stream - i.e. when emitting errors)

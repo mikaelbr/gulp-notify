@@ -40,7 +40,7 @@
 
 ## Requirements
 * **Mac OS X**: No external installation needed (if Mac OS X 10.8 or higher).
-* **Linux**: `notify-send`/`notify-osd` should be installed (On Ubuntu this is installed per default) 
+* **Linux**: `notify-send`/`notify-osd` should be installed (On Ubuntu this is installed per default)
 * **Windows**: Uses native toaster (if Windows 8 or higher).
 * **Fallback: Growl**: Growl (for Mac, Windows or similar) should be installed.
 
@@ -116,7 +116,7 @@ If `false` is returned from the function the notification won't run.
 ### notify(options)
 
 *Options are passed onto the reporter, so on Windows, you can define
-Growl host, on Mac you can pass in contentImage, and so on. 
+Growl host, on Mac you can pass in contentImage, and so on.
 
 See [node-notifier](https://github.com/mikaelbr/node-notifier)
 for all options*
@@ -144,7 +144,7 @@ If the returned stream should emit an error or not.
 If `emitError` is true, you have to handle `.on('error')`
 manually in case the notifier (gulp-notify) fails. If
 the default `false` is set, the error will not be emitted
-but simply printed to the console. 
+but simply printed to the console.
 
 This means you can run the notifier on a CI system without
 opting it out but simply letting it fail gracefully.
@@ -208,6 +208,30 @@ will contain both title and message.
 
 *See `notify.withReporter` for syntactic sugar.*
 
+
+### notify.on(event, function (notificationOptions)) - Events
+
+**If the `wait` option is set to `true`**, the notifier will tigger
+events `click` or `timeout`, whether the user clicks the notification or it
+times out. You listen to these events on the main notify object, not the
+produces stream.
+
+```js
+var notify = require('gulp-notify');
+
+notify.on('click', function (options) {
+  console.log('I clicked something!', options);
+});
+
+notify.on('timeout', function (options) {
+  console.log('The notification timed out', options);
+});
+
+gulp.task("click", function () {
+  return gulp.src("some/glob/**")
+    .pipe(notify({ message: 'Click or wait', wait: true }));
+});
+```
 
 ### notify.withReporter(Function)
 Type: `Reporter`
