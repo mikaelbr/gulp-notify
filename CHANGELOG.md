@@ -1,6 +1,11 @@
 Changelog
 ===
 
+#### `v2.2.0`
+1. Adds support for changing host, port and appName for Growl.
+2. Adds support for templating on subtitle and open (for Notification Center).
+3. Adds support for returning options in function argument style.
+
 #### `v2.1.0`
 1. Adds `click` and `timeout` events to `notify` object.
 
