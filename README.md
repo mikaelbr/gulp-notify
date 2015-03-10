@@ -211,7 +211,7 @@ will contain both title and message.
 
 ### notify.on(event, function (notificationOptions)) - Events
 
-**If the `wait` option is set to `true`**, the notifier will tigger
+**If the `wait` option is set to `true`**, the notifier will trigger
 events `click` or `timeout`, whether the user clicks the notification or it
 times out. You listen to these events on the main notify object, not the
 produces stream.
