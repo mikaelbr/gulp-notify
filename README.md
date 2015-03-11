@@ -73,7 +73,7 @@ gulp.src("./src/test.ext")
   .pipe(notify("Found file: <%= file.relative %>!"));
 ```
 
-See [examples](examples/gulpfile.js) for more og the API section for various inputs.
+See [examples](examples/gulpfile.js) for more or the [API](#api) section for various inputs.
 
 ## Notes/tip
 
