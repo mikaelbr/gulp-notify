@@ -42,7 +42,7 @@
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-plumber": "^1.2.1",
-    "mocha": "^8.3.2",
+    "mocha": "^10.2.0",
     "should": "^13.2.3",
     "vinyl": "^2.2.1"
   },
