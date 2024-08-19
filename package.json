@@ -33,7 +33,7 @@
   "dependencies": {
     "ansi-colors": "^4.1.1",
     "fancy-log": "^1.3.3",
-    "lodash.template": "^4.5.0",
+    "lodash": "^4.17.21",
     "node-notifier": "^9.0.1",
     "node.extend": "^2.0.2",
     "plugin-error": "^1.0.1",
