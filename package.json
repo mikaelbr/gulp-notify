@@ -40,7 +40,7 @@
     "through2": "^4.0.2"
   },
   "devDependencies": {
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.0",
     "gulp-plumber": "^1.2.1",
     "mocha": "^10.7.3",
     "should": "^13.2.3",
