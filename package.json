@@ -44,7 +44,7 @@
     "gulp-plumber": "^1.2.1",
     "mocha": "^10.7.3",
     "should": "^13.2.3",
-    "vinyl": "^2.2.1"
+    "vinyl": "^3.0.0"
   },
   "engines": {
     "node": ">=0.8.0",
