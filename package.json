@@ -31,12 +31,12 @@
     "gulp": "gulp --gulpfile ./examples/gulpfile.js"
   },
   "dependencies": {
-    "ansi-colors": "^4.1.1",
-    "fancy-log": "^1.3.3",
+    "ansi-colors": "^4.1.3",
+    "fancy-log": "^2.0.0",
     "lodash": "^4.17.21",
-    "node-notifier": "^9.0.1",
-    "node.extend": "^2.0.2",
-    "plugin-error": "^1.0.1",
+    "node-notifier": "^10.0.1",
+    "node.extend": "^2.0.3",
+    "plugin-error": "^2.0.1",
     "through2": "^4.0.2"
   },
   "devDependencies": {
